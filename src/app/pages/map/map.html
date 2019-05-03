@@ -1,0 +1,32 @@
+<ion-header class="">
+  <ion-navbar [color]="pageParams.headerBg">
+    <button ion-button icon-only menuToggle start>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      <button ion-button block icon-start (tap)="openSearchModal()" class="ion-btn-map">
+        <ion-icon name="md-search"></ion-icon>
+        <span class="q" id="q"></span>
+        <span class="address" id="address"></span>
+        <span class="placeholder" id="placeholder"></span>
+      </button>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div #map id="map_view">
+    <div margin float-right class="map-loading-spinner" *ngIf="loadingMarkers == true">
+      <ion-spinner></ion-spinner>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar *ngIf="showRedoSearchButton">
+    <button ion-button full clear (tap)="redoMapSearch()">
+      {{ 'MAP_REDO_SEARCH' | translate }}
+    </button>
+  </ion-toolbar>    
+</ion-footer>

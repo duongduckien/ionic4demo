@@ -1,0 +1,53 @@
+.pgm-html-info-content-frame {
+  background: transparent !important;
+  border: none !important;
+  .pgm-html-info-content-box {
+    padding: 10px;
+    .listing-infowindow {
+      padding: 8px;
+      width: 280px;
+      border-radius: 5px;
+      background: #fff;
+      overflow: hidden;
+      min-height: 75px;
+      .listing-title {
+        font-size: 16px;
+        text-overflow: ellipsis;
+        overflow: hidden;    
+        margin-bottom: 5px;    
+      }
+      .item-ios ion-thumbnail,
+      ion-thumbnail {
+        min-width: 50px;
+        min-height: 50px;
+      }
+      .thumb-image {
+        position: relative;
+        float: left;
+        width: 50px;
+        height: 50px;
+        margin: 0 5px 0 0;
+        touch-action: auto !important;
+        ion-thumbnail {
+          position: relative;
+          background-size: cover;
+          touch-action: auto !important;
+          margin: 0 !important;
+          border-radius: 5px;
+        }
+      }
+      .rating-stars-container {
+        margin-top: 5px;
+      } 
+    }
+  }
+}
+.pgm-html-info-tail-frame {
+  .pgm-html-info-tail-left, .pgm-html-info-tail-right {
+    top: -4px !important;
+  }
+  .pgm-html-info-tail-erase-border {
+    top: -7px;
+    display: none;
+  }
+}

@@ -1,0 +1,27 @@
+reviews-list {
+  
+  display: flex;
+
+  .review-content {
+    width: 85%;
+    h2,
+    .review-comments {
+      text-overflow: ellipsis!important;
+      overflow: hidden!important;
+      white-space: nowrap!important;
+    }
+
+    ion-col.col{
+      padding: 0;
+    }
+
+    .rating-stars-container {
+      margin: 3px 0;
+    }    
+  }   
+
+  .review-info p {
+    font-size: 12px;
+  }
+
+}

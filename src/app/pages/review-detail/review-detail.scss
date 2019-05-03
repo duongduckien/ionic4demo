@@ -1,0 +1,27 @@
+page-review-detail {
+  .content{
+    background: white;
+    padding: 10px 15px;
+  }
+  .review-content {
+    padding: 10px 15px;
+  }
+  .listing-info {
+    font-size: 18px;
+    &.linked {
+      padding: 5px 10px;
+      margin-left: -10px;
+      margin-right: -10px;
+      background: #eee;
+      font-size: 20px;
+    }
+    ion-icon {
+      float: right;
+    }
+  }
+
+  .rating-stars-container {
+    margin-bottom: 5px;
+  }
+}
+

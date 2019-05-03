@@ -1,0 +1,350 @@
+page-listing-detail {
+  #header {
+    display: none;
+  }
+  overall-ratings[type="user"] .rating-stars-container {
+    margin-top: 5px;
+  }
+  .header-custom{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 90px;
+    background: linear-gradient(to bottom ,rgba(0,0,0,0.3),rgba(0,0,0,0.2),rgba(0,0,0,0.1),rgba(0,0,0,0));
+    .goback{
+      position: absolute;
+      top: 30px;
+      left: 20px;
+      width: 130px;
+      height: 70px;
+      .icon {
+        position: absolute;
+        top: 10px;
+        left: 20px; 
+        font-size: 35px;
+        color: #fff;
+      }
+    }
+    .favorite-top{
+      position: absolute;
+      top: 30px;
+      right: 20px;
+      width: 130px;
+      height: 70px;
+      .icon{
+        position: absolute;
+        top: 20px;
+        right: 0; 
+        font-size: 35px;
+      }
+      .unlike{
+        color: #fff;
+      }
+    }
+  }
+  .listing-detail-content {
+    background: #ffffff;
+    .ld-header {
+      position: relative;
+      .ld-header-img {
+        ion-spinner {
+          width: 40px;
+          height: 40px;
+          margin: 50px 0;
+        }
+        img {
+          width: 100%;
+        }
+        .img-loaded + ion-spinner {
+          display:none;
+        }  
+      }
+      .ld-btn-back {
+        z-index: 24;
+        position: absolute;
+        left: 20px;
+        color: #ffffff;
+        padding: 0 7px;
+        i {
+          font-size: 30px;
+          margin-top:2px;
+        }
+      }
+      .ld-btn-add-favorite {
+        z-index: 25;
+        position: absolute;
+        right: 20px;
+        color: #ffffff;
+        padding: 0 7px;
+        .listing-favorites-top{
+          margin-top:3px;
+        }
+        i {
+          font-size: 30px;
+        }
+      }
+    }
+    .ld-content {
+      padding: 10px 15px;
+      background: #ffffff;
+      .ld-content-info {
+        padding-bottom: 30px;
+      }
+      .ld-action-buttons {
+        border-top: 2px solid #eaeaea;
+        border-bottom: 2px solid #eaeaea;
+        overflow: hidden;
+        margin-bottom: 10px;
+        .action-btn {
+          text-align: center;
+          margin: 10px 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &:first-child{
+            border-right: 1px solid #eaeaea;
+          }
+          i {
+            margin-right: 5px;
+          }
+          .icon-star{
+            width: 25px;
+            height: 25px;
+            border-radius: 3px;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            .icon{
+              color: #000;
+            }
+          }
+          span {
+            display: inline-block;
+            text-transform: uppercase;
+          }
+        }
+        .action-btn.action-btn-single {
+          border-right: 0;
+        }
+      }
+    }
+    .ld-content-bottom {
+      background: #ffffff;
+      // Needed to limit size of images coming from api response with embedded styles
+      img {
+        max-width: 100%!important;
+      }
+    }
+  
+  // Hide bottom border in review list
+  ion-list > .item-block:last-child,
+  ion-list.list-ios > .item-block:last-child {
+    border-bottom: 0;
+  }
+
+  }
+  .no-image{
+    height: 75px;
+  }
+  .box-favorite{
+    .icon.like,.unlike{
+      font-size: 26px;
+      margin-right: 5px;
+    }
+    .unlike{
+      color: #000000;
+    }
+  }
+  .listing-user{
+    display: flex;
+    align-items: center;
+    img{
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+  }
+  .listing-header {
+    background: #fff;
+    border-bottom: 0.55px solid #ddd;
+    margin-bottom: 20px;
+  }
+  .summary,
+  .description {
+    line-height: 1.5em;
+    font-size: 1.8rem;
+  }
+  .user-info {
+    font-size: 1.6rem;
+    color: #555;
+    font-weight: 500;
+  }
+  .listing-address span:after {
+    content: " ";
+  }
+  .write-review-button {
+    margin: 10px 0;
+  }
+
+  .main-thumb {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .listing-photos {
+    margin-bottom: 10px;
+  }
+
+  .listing-favorites {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+  }
+  .box-favorite i.icon-unlike{
+    font-size: 30px;
+    color: #ffffff;
+  }
+  .media-list {
+    background: #fff;
+    //border-top: 0.55px solid #ddd;
+    //border-bottom: 0.55px solid #ddd;
+  }
+  .get-direction {
+    margin: 15px 0;
+    padding: 10px;
+    background: #fff;
+    color: #333;
+    ion-icon {
+      margin-right: 5px;
+    }
+    p {
+      margin: 0;
+    }
+    img {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      margin-right: 8px;
+      vertical-align: bottom;
+    }
+  }
+  .static-map,
+  .get-direction {
+    touch-action: auto !important;
+  }
+  .ld-content{
+    .ld-content-info{
+      .page-title{
+        margin-bottom: 10px;
+        font-size: 24px;
+        font-weight: 500;
+        margin-top: 0;
+      }
+      .listing-user{
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .listing-reviews .list-ios > .item-block:first-child  {
+    border-top: 0;
+  }
+
+}
+.assignment {
+  padding: 5px 15px;
+  .phone{
+    color: #000;
+    text-decoration: none;
+  }
+  p{
+    margin: 5px 0;
+  }
+  span {
+    display: inline-block;
+  }
+  span:nth-child(3) {
+    margin-top: 5px;
+  }
+  ion-grid {
+    border-top: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+    padding: 0px;
+    margin-top: 15px;
+  }
+  ion-col {
+    padding: 0px ;
+    margin: 5px 0;
+    &:first-child {
+      border-right: 1px solid #eaeaea;
+    }
+  }
+  i,
+  img {
+    display: inline-block;
+    margin-right: 7px;
+    line-height: 20px;
+    vertical-align: middle;
+  }
+  i {
+    font-size: 32px;
+  }
+  .wrap{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    padding: 8px 0;
+
+    .icon-left{
+      font-size: 30px;
+      flex: 1;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img{
+        width: 25px;
+        height: 25px;
+      }
+      .icon-direction{
+        width: 30px;
+        height: 30px;
+      }
+    }
+    .content-right{
+      flex: 2;
+      font-size: 14px;
+      font-weight: normal;
+      p{
+        margin: 0;
+        text-transform: uppercase;
+      }
+      .number{
+        color: #8e9093;
+      }
+    }
+    &.no-flex{
+      justify-content: center;
+      .icon-left{
+        flex: initial;
+      }
+      .content-right{
+        flex: initial;
+      }
+    }
+  }  
+}
+.assignment.assignment-single {
+  ion-col {
+    &:first-child {
+      border-right: 0;
+    }
+  }
+}

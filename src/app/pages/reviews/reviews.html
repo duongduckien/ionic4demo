@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar [color]="pageParams.headerBg">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title *ngIf="pageParams.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+
+    <ion-title *ngIf="!pageParams.headerTitle && pageParams.headerImg">
+      <img [src]="pageParams.headerImg" />
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="title-header" *ngIf="pageParams.pageTitle">
+    <h2 class="page-title">{{ pageParams.pageTitle }}</h2>
+  </div>
+
+  <ion-list [virtualScroll]="reviews" approxItemHeight="90px">
+    <ion-item *virtualItem="let review" (tap)="goToReviewDetail(review)">
+      <reviews-list [review]="review" [whichTitle]="whichTitle"></reviews-list>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll *ngIf="moreReviews()" (ionInfinite)="loadReviews($event)" threshold="20%">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

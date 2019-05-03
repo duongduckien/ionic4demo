@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar [color]="pageParams.headerBg">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="pageParams.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+    <ion-title *ngIf="!pageParams.headerTitle && pageParams.headerImg"><img *ngIf="pageParams.headerImg" [src]="pageParams.headerImg" /></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content">
+  <ion-list *ngFor="let menu of menus" >
+    <div *ngIf="menu.menuPages.length > 0">
+      <ion-list-header>{{ menu.title || " " }}</ion-list-header>
+      <button ion-item *ngFor="let p of menu.menuPages" (tap)="openPage(p)" [hidden]="!p.published">
+        <ion-icon item-left *ngIf="p.icon" [name]="p.icon"></ion-icon>
+        {{p.title}}
+      </button>
+    </div>
+
+  </ion-list>
+
+</ion-content>

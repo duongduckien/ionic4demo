@@ -1,0 +1,498 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+
+
+
+
+// Ionicons
+// --------------------------------------------------
+
+@import "ionic.ionicons";
+
+
+// Fonts
+// --------------------------------------------------
+
+@import "roboto";
+@import "noto-sans";
+
+
+// App Global Sass
+// --------------------------------------------------
+
+.platform-ios ion-menu {
+  top: 44px;
+}
+.platform-android ion-menu {
+  top: 56px;
+}
+.ios ion-menu[type=overlay] .menu-inner {
+  box-shadow: none; 
+}
+ion-navbar {
+  .back-button-ios {
+    margin: 0 6px;
+  }
+}
+
+img,
+button,
+ion-slide {
+  touch-action: auto !important;
+}
+
+ion-backdrop {
+  background-color: transparent;
+}
+.loading-md .loading-wrapper,
+.loading-ios .loading-wrapper {
+  opacity: 0.9!important;
+  background: #ccc;
+}
+textarea {
+  height: 40px;
+  min-height: 40px;
+  resize: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.loading-spinner {
+  margin-top: 5px;
+  ion-spinner {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.message {
+  position: absolute;
+  left: 0;
+  bottom: -100%;
+  padding: 20px;
+  width: 100%;
+  height: auto;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  z-index: 999999;
+  transition: all 0.2s ease;
+  &.active {
+    bottom: 0;
+  }
+}
+
+.content-ios h3.page-section,
+.content-md h3.page-section {
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  color: #757575;
+  padding: 10px;
+  margin: 15px 0 0;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+// iOS overrides
+.label-ios[stacked] {
+  font-size: 1.3rem;
+}
+
+// Android overrides
+.list-md {
+  margin-bottom: 20px;
+}
+
+.label-md[stacked] {
+  font-size: 1.3rem;
+}
+
+.list-header-md {
+  margin-bottom: 0;
+  border: 0;
+}
+
+.ion-md-arrow-back:before {
+  content: "\f3cf";
+}
+
+ion-buttons[start] {
+  order: 1 !important;
+}
+
+ion-alert {
+  .alert-radio-group .alert-tappable {
+    min-height: 0 !important;
+    line-height: 3em !important;
+  }
+  .alert-radio-label {
+    padding: 0 !important;
+  }
+  .alert-radio-inner {
+    top: -12px !important;
+  }
+  button {
+    padding: 0 10px !important;
+  }
+  .alert-wrapper {
+    border-radius: 0 !important;
+  }
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+ion-content.content {
+  background: #f5f5f5;
+}
+
+.title-header {
+  padding: 10px 16px;
+}
+
+ion-title {
+  text-align: center;
+  img {
+    max-width: 150px;
+  }
+  &.title-md {
+    z-index: -1;
+    left: 0;
+    top: 0;
+    padding: 0 60px 1px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(0);
+  }
+}
+
+.toolbar-ios ion-title {
+  padding: 0 60px 1px;
+}
+
+.alert-radio-group {
+  .alert-radio-inner{
+    top: 2px !important;
+  }
+  .alert-radio-label{
+    padding: 5px 26px !important;
+  }
+}
+
+.alert-button-group {
+  .alert-button{
+    padding: 10px 12px !important;
+  }
+}
+
+.iframe {
+  -ms-zoom: 0.8;
+  -moz-transform: scale(0.8);
+  -moz-transform-origin: 0 0;
+  -o-transform: scale(0.8);
+  -o-transform-origin: 0 0;
+  -webkit-transform: scale(0.8);
+  -webkit-transform-origin: 0 0;
+}
+
+
+// Registration, Login, Account Pages
+// --------------------------------------------------
+.btn-google,.btn-facebook {
+  height: 45px;
+  background: #fff;
+  color: #767676;
+  font-weight:700;
+  -webkit-box-shadow: 0px 7px 29px -3px rgba(221,221,221,0.49);
+  -moz-box-shadow: 0px 7px 29px -3px rgba(221,221,221,0.49);
+  box-shadow: 0px 7px 29px -3px rgba(221,221,221,0.49);
+}
+.fb-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .icon{
+    font-size: 32px;
+    color: #4267b2;
+  }
+}
+.icon-register {
+  height: 25px;
+  width: 25px;
+  line-height: 16px;
+  text-align: center;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #db4437;
+  border-radius: 5px;
+  .icon{
+    padding-right: 0;
+    color: white;
+    font-size: 18px;
+  }
+}
+.text-email-register {
+  text-align: center;
+  color: #757575;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 10px 0 0px 0;
+  p {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+  }
+}
+.register-form, .form-login, .contact-form {
+  .input-wrapper {
+    .label {
+      font-weight: 500;
+      font-size: 16px;
+      color: #929292;
+    }
+  }
+}
+
+// Grid layouts
+// --------------------------------------------------
+.grid-3 ion-row {
+  width: 100%;
+  height: calc(100vw / 3);
+}
+.grid-2 ion-row {
+  width: 100%;
+  height: calc((100vw / 2) + 55px);
+}
+
+// Favorites
+// --------------------------------------------------
+.like{
+  color: #c72c42;
+}
+.unlike{
+  color: #f5f5f5;
+}
+
+// Places Autocomplete
+// --------------------------------------------------
+.pac-container {
+  margin-top: 13px;
+  z-index: 999999;
+  &::after {
+    content: none;
+  }
+  .pac-item {
+    padding: 2px 4px;
+  }
+}
+
+
+// Lists 
+// --------------------------------------------------
+
+.list-items {
+  > ul {
+    > li {
+      display: block;
+      h5 {
+        font-size: 13px;
+        color: #333;
+        font-weight: normal;
+      }
+      h4 {
+        font-size: 15px;
+        color: #333;
+        font-weight: normal;
+      }
+      ul {
+        padding-left: 0;
+        li {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+// Scroller
+// --------------------------------------------------
+.j-scroll {
+  &.home-scroll {
+    .scroll-content {
+      padding: 10px !important;
+      min-height: 200px;
+    }
+    .item {
+      position: relative;
+      padding: 0 5px;
+      width: 160px;
+      min-width: 160px;
+      vertical-align: top;
+      .inner-item {
+        width: 150px;
+        height: 150px;
+        border-radius: 4px;
+        margin: auto;
+      }
+    }
+  }
+  .page-section {
+    background: transparent !important;
+  }
+  ion-scroll {
+    margin-bottom: 25px;
+  }
+  .scroll-content {
+    position: static;
+    min-height: 140px;
+    background: #fff;
+    padding: 10px 20px !important;
+    .scroll-zoom-wrapper {
+      margin: 0 -10px;
+      white-space: nowrap;
+      overflow: auto;
+    }
+  }
+  .item {
+    display: inline-block;
+    .inner-item {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 5px;
+      overflow: hidden;
+      border-radius: 4px;
+      touch-action: auto !important;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      img {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+        border-radius: 4px;
+      }
+      .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        background: #f1f1f1;
+        border-radius: 50%;
+        border: 1px solid #a9a9a9;
+        touch-action: auto !important;
+        z-index: 999999;
+        .icon {
+          color: #a9a9a9;
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 18px;
+        }
+      }
+    }
+  }
+}
+
+
+
+// override google map
+.pgm-html-info-content-box {
+  white-space: normal !important;
+  width: 100%;
+}
+
+.pgm-html-info-content-frame {
+  height: auto !important;
+}
+
+.text-top {
+  text-align: center;
+  font-size: 18px;
+  margin: 0;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.mr-10 {
+  margin-right: 10px !important;
+}
+.ml-10 {
+  margin-left: 10px !important;
+}
+.pr-5 {
+  padding-right: 5px !important;
+}
+.pl-5 {
+  padding-left: 5px !important;
+}
+.pd-horizontal-10{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.btn-default{
+  min-height: 45px;
+}
+
+@mixin flex-row-center {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.flex-row-center{
+  @include flex-row-center
+}
+
+.font-bold {
+  font-weight: bold !important;
+}
+
+.btn-0082ca {
+  background: #0082ca !important;
+}
+
+ion-content.content.bgf5 {
+  background: #f5f5f5;
+}
+
+.title-header h2.page-title {
+  text-align: center;
+  color: #757575;
+  font-size: 16px;
+}
+
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+
+.bg-white {
+  background: #fff;
+}
+
+.non-padding {
+  padding: 0 !important;
+  .item-inner {
+    padding: 0 !important;
+  }
+}

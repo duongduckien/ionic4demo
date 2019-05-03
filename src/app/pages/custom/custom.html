@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar [color]="pageParams.headerBg">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="pageParams.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+    <ion-title *ngIf="!pageParams.headerTitle && pageParams.headerImg"><img *ngIf="pageParams.headerImg" [src]="pageParams.headerImg" /></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="title-header" *ngIf="pageParams.pageTitle">
+    <h2 class="page-title">{{ pageParams.pageTitle }}</h2>
+  </div>
+
+  <div class="custom-content" padding *ngIf="pageParams?.iframeURL === undefined && html">
+      <div [innerHTML]="html | convertlinks"></div>
+  </div>
+
+  <div class="custom-content customPage-boundary" padding *ngIf="pageParams?.iframeURL !== undefined">
+    <iframe width="100%" height="100%" [src]="domSanitizer.bypassSecurityTrustResourceUrl(pageParams?.iframeURL)" frameborder="0"></iframe>
+  </div>
+
+</ion-content>

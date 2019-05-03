@@ -1,0 +1,38 @@
+<div *ngIf="layout === 'list'" class="list-layout">
+  <ion-list no-margin class="item-list-common">
+    <ion-item no-padding *ngFor="let listing of listings; let i = index" tappable>
+      <div class="thumb thumb-list" (tap)="goToListingDetail(listing)">
+        <ion-thumbnail *ngIf="listing?.thumb" item-left [ngStyle]="{'background-image': 'url(' + listing.thumb + ')'}"></ion-thumbnail>
+      </div>
+      <div class="item-content" (tap)="goToListingDetail(listing)">
+        <h2 class="font-bold">{{ listing.title }}</h2>
+        <overall-ratings type="editor" [listing]="listing" *ngIf="listing?.reviews?.editor !== null"></overall-ratings>
+        <overall-ratings type="user" [listing]="listing" *ngIf="listing?.reviews?.user !== null"></overall-ratings>
+      </div>
+      <div *ngIf="allowsFavorites(listing)" class="listing-favorites" (tap)="toggleFavorite(i)" tappable>
+        <ion-icon class="like" name="md-heart" [hidden]="!listing?.me?.favorite"></ion-icon>
+        <ion-icon class="unlike" name="md-heart-outline" [hidden]="listing?.me?.favorite"></ion-icon>
+      </div>
+    </ion-item>
+  </ion-list>
+</div>
+
+<div *ngIf="layout === 'slider'" class="slider-layout">
+  <div class="listing-photos j-scroll home-scroll">
+    <div class="slider-list">
+      <div class="item" *ngFor="let listing of listings; let i=index">
+        <div class="thumb thumb-slider" (tap)="goToListingDetail(listing)">
+            <div class="thumb-gradient"></div>
+            <ion-thumbnail *ngIf="listing?.thumb" [ngStyle]="{'background-image': 'url(' + listing.thumb + ')'}"></ion-thumbnail>
+        </div>
+        <div *ngIf="allowsFavorites(listing)" class="listing-favorites" (tap)="toggleFavorite(i)" tappable>
+          <ion-icon class="like" name="md-heart" [hidden]="!listing?.me?.favorite"></ion-icon>
+          <ion-icon class="unlike" name="md-heart-outline" [hidden]="listing?.me?.favorite"></ion-icon>
+        </div>
+        <div class="item-title" (tap)="goToListingDetail(listing)">
+          <span>{{ listing.title | truncatetext:75 }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

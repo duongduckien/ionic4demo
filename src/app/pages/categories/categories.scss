@@ -1,0 +1,19 @@
+page-categories {
+  .subcategory {
+    .item {
+      padding-left: 30px;
+    }
+  }
+  .thumb-image {
+    display: inline-block;
+    margin-right: 10px;
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    touch-action: auto !important;
+  }
+  h2 {
+    display: inline-block;
+    vertical-align: top;
+  }
+}

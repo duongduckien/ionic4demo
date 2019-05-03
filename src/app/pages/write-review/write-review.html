@@ -1,0 +1,273 @@
+<ion-header>
+  <ion-navbar [color]="pageParams.headerBg" class="navbar">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="pageParams.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+    <ion-title *ngIf="pageParams.pageTitle">{{ pageParams.pageTitle }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="wrap-content-write-review">
+    <div class="title-header" *ngIf="pageParams.pageTitle">
+      <h2 class="page-title">{{ pageParams.pageTitle }}</h2>
+    </div>
+
+    <div class="find-listing" *ngIf="showListingSearch">
+      <div class="wrap-search-bar">
+        <ion-searchbar (ionClear)="clearListingReviews()" (keyup)="searchListing.next($event)" placeholder="{{ 'PLACEHOLDER_TYPING_LISTING' | translate }}" debounce=500></ion-searchbar>
+      </div>
+
+      <div padding text-center class="message" *ngIf="message.length > 0">{{ message }}</div>
+
+      <ion-list radio-group *ngIf="listings.length > 0">
+        <ion-list-header>{{ 'PICK_LISTING_REVIEW' | translate }}</ion-list-header>
+        <ion-item *ngFor="let listing of listings">
+          <ion-label>{{ listing.title }}</ion-label>
+          <ion-radio [value]="listing.id" (ionSelect)="updateReviewForm($event)"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <form *ngIf="showForm" class="form-write-review">
+
+      <ion-list class="ion-list-review-title">
+        <div *ngFor="let standard_field of listingTypeData.standard_fields" class="standard_field">
+          <ion-item *ngIf="standard_field.name === 'title'" [ngClass]="[(standard_field.required && ( review.title === '' || review.title === undefined ) && isSubmit) ? 'invalid' : '']">
+            <ion-label stacked>{{'REVIEWFORM_TITLE_LABEL' | translate}}
+              <span class="required-field" *ngIf="standard_field.required && ( review.title === '' || review.title === undefined ) && isSubmit">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+            </ion-label>
+            <ion-input type="text" placeholder="{{'REVIEWFORM_TITLE_PLACEHOLDER' | translate}}" [(ngModel)]="review.title" name="title"></ion-input>
+          </ion-item>
+        </div>
+      </ion-list>
+
+      <div class="list-items" *ngIf="listingTypeData.criteria !== null" [ngClass]="{'wrap-list-review-start': pageParams.ratingSelector == 'star'}">
+        <h3 class="item-header">{{'REVIEWFORM_RATINGS_LABEL' | translate}}</h3>
+        <div class="wrap-list-write-review">
+          <div *ngFor="let criterion of listingTypeData.criteria" class="each-item">
+            <div class="col-left">
+              <p>{{ criterion.title }}</p>
+            </div>
+            <div class="col-right">
+              <div class="flex-row-center">
+
+                <div class="wrap-icon-del">
+                  <ion-icon  *ngIf="!criterion.required" (tap)="onClearRating($event, criterion)" name="md-remove-circle" class="icon-del"></ion-icon>
+                </div>
+
+                <rating-selector
+                  [class]="(criterion.required && ( review.ratings[criterion.id] === '' || review.ratings[criterion.id] === undefined ) && isSubmit) ? 'invalid' : ''"
+                  [name]="criterion.id" 
+                  [data]="criterion" 
+                  [type]="pageParams.ratingSelector" 
+                  [max]="listingTypeData.config.rating_scale"
+                  [min]="0" 
+                  [step]="1"
+                  [label]="review.ratings[criterion.id]"
+                  (onChange)="onRatingChange($event)"
+                  [inputValue]="review.ratings[criterion.id]">
+                </rating-selector>
+
+                <span class="rating-result">{{ review.ratings[criterion.id] ? review.ratings[criterion.id] : 0 }}/{{ listingTypeData.config.rating_scale }}</span>
+
+              </div>
+              <p class="required-field" *ngIf="showRatingError && criterion.required && !review.ratings[criterion.id]">{{ 'VALIDATION_REQUIRED' | translate }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="list-items">
+        <ul class="list-items__field-groups">
+          <li *ngFor="let group of listingTypeData.field_groups_filtered">
+            <div *ngIf="group.show">
+              <h3 class="item-header">{{ group.title }}</h3>
+              <ul class="main-item">
+                <li class="each-item" *ngFor="let field of group.fields">
+
+                  <div class="flex-row">
+
+                    <span *ngIf="field.show" class="mr-10">{{ field.title }}</span>
+
+                    <span class="msg-title-field mr-10" *ngIf="msgInput[field.name] && msgInput[field.name] !== ''">{{ msgInput[field.name] }}</span>
+  
+                    <div *ngFor="let fieldErr of fieldsError">
+                      <div *ngIf="fieldErr.name === field.name">
+                        <div [ngSwitch]="fieldErr.status">
+                          <ng-template [ngSwitchCase]="101">
+                            <span class="msg-title-field">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+                          </ng-template>
+                          <ng-template [ngSwitchCase]="102">
+                            <span class="msg-title-field">{{ 'VALIDATION_NUMERIC' | translate }}</span>
+                          </ng-template>
+                          <ng-template [ngSwitchCase]="103">
+                            <span class="msg-title-field">{{ 'VALIDATION_BETWEEN' | translate }}</span>
+                          </ng-template>
+                          <ng-template [ngSwitchCase]="106">
+                            <span class="msg-title-field">{{ 'VALIDATION_DATE_FORMAT' | translate }}</span>
+                          </ng-template>
+                          <ng-template [ngSwitchCase]="107">
+                            <span class="msg-title-field">{{ 'VALIDATION_EMAIL' | translate }}</span>
+                          </ng-template>
+                          <ng-template [ngSwitchCase]="108">
+                            <span class="msg-title-field">{{ 'VALIDATION_INTERGER' | translate }}</span>
+                          </ng-template>
+                          <ng-template [ngSwitchCase]="109">
+                            <span class="msg-title-field">{{ 'VALIDATION_STRING' | translate }}</span>
+                          </ng-template>
+                          <ng-template [ngSwitchCase]="110">
+                            <span class="msg-title-field">{{ 'VALIDATION_URL' | translate }}</span>
+                          </ng-template>
+                          <ng-template [ngSwitchCase]="113">
+                            <span class="msg-title-field">{{ 'VALIDATION_ALPHA_NUM' | translate }}</span>
+                          </ng-template>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+
+                  <ion-item *ngIf="field.type === 'text' && field.params === undefined && field.show">
+                    <ion-input [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" [placeholder]="field.params?.autocomplete ? hint : ''" type="text" (ngModelChange)="disableError(field.name)" [(ngModel)]="review.fields[field.name]" name="{{ field.name } }"></ion-input>
+                  </ion-item>
+                  <ion-item *ngIf="field.type === 'text' && field.params !== undefined && field.params.autocomplete !== undefined && field.params.autocomplete && field.show">
+                    <ion-input [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" [placeholder]="hint" type="text" (ngModelChange)="disableError(field.name)" [(ngModel)]="tmp" name="{{ field.name }}" (ngModelChange)="onChangeValue(field.name, field.fieldid, $event)" (keyup)="keyUp.next($event)"></ion-input>
+                  </ion-item>
+                  <ion-item *ngIf="field.type === 'text' && field.params !== undefined && field.params.autocomplete !== undefined && !field.params.autocomplete && field.show">
+                    <ion-input [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" [placeholder]="''" type="text" (ngModelChange)="disableError(field.name)" [(ngModel)]="review.fields[field.name]" name="{{ field.name }}"></ion-input>
+                  </ion-item>
+
+                  <!-- Autocomplete -->
+                  <ion-list *ngIf="field.type === 'text' && field.params !== undefined && field.params.autocomplete !== undefined && field.params.autocomplete && showSuggestion && autocompleteResult.name === field.name">
+                    <ion-item *ngFor="let val of autocompleteResult.data" (tap)="chooseSuggestion(val.value, val.text, field.name, field.fieldid)">
+                      {{ val.text }}
+                    </ion-item>
+                  </ion-list>
+
+                  <div *ngIf="field.type === 'tag-input' && tagsInput[field.parent]" class="tag-container">
+                    <span [ngClass]="tag.show ? 'tag-show' : 'tag-hide'" *ngFor="let tag of tagsInput[field.parent]" (tap)="setStatusTag(tag.value, field.parent)">
+                      {{ tag.text }}
+                    </span>
+                  </div>
+
+                  <!-- Input interger field -->
+                  <ion-item *ngIf="field.type === 'integer' && field.show">
+                    <ion-input [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" class="" type="number" (ngModelChange)="disableError(field.name)" [(ngModel)]="review.fields[field.name]" name="{{ field.name }}"></ion-input>
+                  </ion-item>
+
+                  <!-- Input decimal field -->
+                  <ion-item *ngIf="field.type === 'decimal' && field.show">
+                    <ion-input [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" type="number" (ngModelChange)="disableError(field.name)" [(ngModel)]="review.fields[field.name]" name="{{ field.name }}"></ion-input>
+                  </ion-item>
+
+                  <!-- Input email field -->
+                  <ion-item *ngIf="field.type === 'email' && field.show">
+                    <ion-input [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" type="email" (ngModelChange)="disableError(field.name)" [(ngModel)]="review.fields[field.name]" name="{{ field.name }}"></ion-input>
+                  </ion-item>
+
+                  <!-- Input website field -->
+                  <ion-item *ngIf="field.type === 'website' && field.show">
+                    <ion-input [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" (ngModelChange)="disableError(field.name)" (ionChange)="onChangeField($event, field)" (ionBlur)="onBlurField($event, field)" type="url" [(ngModel)]="review.fields[field.name]" name="{{ field.name }}"></ion-input>
+                  </ion-item>
+
+                  <!-- Input textarea field -->
+                  <ion-item *ngIf="field.type === 'textarea' && field.show">
+                    <ion-textarea [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" rows="5" (ngModelChange)="disableError(field.name)" [(ngModel)]="review.fields[field.name]" name="{{ field.name }}"></ion-textarea>
+                  </ion-item>
+                  <ion-item *ngIf="field.type === 'code' && field.show">
+                    <ion-textarea [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" rows="5" (ngModelChange)="disableError(field.name)" [(ngModel)]="review.fields[field.name]" name="{{ field.name }}"></ion-textarea>
+                  </ion-item>
+
+                  <!-- Select -->
+                  <ion-item *ngIf="field.type === 'select' && field.show">
+                    <ion-select [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" class="showOptions" (ngModelChange)="disableError(field.name)" [(ngModel)]="review.fields[field.name]" name="{{ field.name }}" (ionChange)="onSelectChange($event, field.fieldid)">
+                      <div *ngFor="let option of field.options">
+                        <ion-option *ngIf="option.show" [value]="option.value">
+                          {{ option.text }}
+                        </ion-option>
+                      </div>
+                    </ion-select>
+                  </ion-item>
+
+                  <ion-item *ngIf="field.type === 'radiobuttons' && field.show">
+                    <ion-select [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" (ngModelChange)="disableError(field.name)" [(ngModel)]="review.fields[field.name]" name="{{ field.name }}" (ionChange)="onSelectChange($event, field.fieldid)">
+                      <div *ngFor="let option of field.options">
+                        <ion-option *ngIf="option.show" [value]="option.value">
+                          {{ option.text }}
+                        </ion-option>
+                      </div>
+                    </ion-select>
+                  </ion-item>
+
+                  <ion-item *ngIf="field.type === 'selectmultiple' && field.show">
+                    <ion-select [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" (ngModelChange)="disableError(field.name)" multiple="true" [(ngModel)]="review.fields[field.name]" name="{{ field.name }}" (ionChange)="onSelectChange($event, field.fieldid)">
+                      <div *ngFor="let option of field.options">
+                        <ion-option *ngIf="option.show" [value]="option.value">
+                          {{ option.text }}
+                        </ion-option>
+                      </div>
+                    </ion-select>
+                  </ion-item>
+
+                  <ion-item *ngIf="field.type === 'checkboxes' && field.show">
+                    <ion-select [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" (ngModelChange)="disableError(field.name)" [(ngModel)]="review.fields[field.name]" name="{{ field.name }}" (ionChange)="onSelectChange($event, field.fieldid)"
+                      multiple="true">
+                      <div *ngFor="let option of field.options">
+                        <ion-option *ngIf="option.show" [value]="option.value">
+                          {{ option.text }}
+                        </ion-option>
+                      </div>
+                    </ion-select>
+                  </ion-item>
+
+                  <!-- Date time -->
+                  <ion-item *ngIf="field.type === 'date' && field.show">
+                    <ion-datetime [ngClass]="checkErrorTemplate(field.name) ? 'has-error' : ''" (ngModelChange)="disableError(field.name)" displayFormat="YYYY-MM-DD" pickerFormat="DD MMM YYYY" [(ngModel)]="review.fields[field.name]" name="{{ field.name }}"></ion-datetime>
+                  </ion-item>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngFor="let standard_field of listingTypeData.standard_fields" class="comment">
+        <ion-list *ngIf="standard_field.name === 'comments'">
+          <ion-list-header>{{'REVIEWFORM_COMMENTS_LABEL' | translate}}
+            <span class="required-field" *ngIf="standard_field.required && ( review.comments === '' || review.comments === undefined ) && isSubmit">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+          </ion-list-header>
+          <ion-item [ngClass]="[(standard_field.required && ( review.comments === '' || review.comments === undefined ) && isSubmit) ? 'invalid' : '']">
+            <ion-textarea placeholder="{{'REVIEWFORM_COMMENTS_PLACEHOLDER' | translate}}" (ngModelChange)="onTextareaChange()" [(ngModel)]="review.comments"
+              name="comments"></ion-textarea>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div *ngIf="permissionUpload">
+        <div class="listing-photos-upload">
+          <div class="listing-add-photos" (tap)="showRadio()">
+            <ion-icon name="camera"></ion-icon>
+          </div>
+          <div class="listing-photos j-scroll">
+            <ion-scroll scrollX="true" direction="x" class="media-list">
+              <div class="item" *ngFor="let image of imageSelected; let i=index">
+                <div class="inner-item" [ngStyle]="image ? {'background-image': 'url(' + image + ')'} : ''">
+                  <div class="close" (tap)="removeImage(i)">
+                    <ion-icon name="close"></ion-icon>
+                  </div>
+                </div>
+              </div>
+            </ion-scroll>
+          </div>
+        </div>
+      </div>
+
+      <div padding>
+        <button ion-button class="btn-default" (tap)="dataSubmit()" color="primary" block>{{'REVIEWFORM_SUBMIT_LABEL' | translate}}</button>
+      </div>
+
+    </form>
+  </div>
+</ion-content>

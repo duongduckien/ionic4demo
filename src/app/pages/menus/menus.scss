@@ -1,0 +1,5 @@
+page-menus {
+  .list-ios:not([inset]) + .list-ios:not([inset]) ion-list-header{
+    margin: 0;
+  }
+}

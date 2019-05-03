@@ -1,0 +1,49 @@
+listings-card {
+  .card-content {
+    position: relative;
+  }
+  ion-card-header {
+    touch-action: auto !important;
+  }
+  ion-card-content {
+    position: relative;
+  }
+  &.card-ios{
+    margin:0;
+    width:100%;
+  }
+  .favorite {
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+  }
+  .card-header{
+    h2{
+      color: #333;
+      font-weight:700;
+      font-size: 18px;
+    }
+  }
+  .author-submit{
+    font-size:12px;
+    font-weight: bold;
+    span{
+      font-size:11px;
+      color: #bcbcbc;
+      font-weight: normal;
+    }
+  }
+  .wrap-rating{
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0;
+    justify-content: space-between;
+    .rating-count {
+      display: none;
+    }
+    overall-ratings{
+
+    }
+  }
+}

@@ -1,0 +1,33 @@
+page-custom {
+
+  .custom-content {
+    background: #fff;
+    border-top: 0.55px solid #ddd;
+    border-bottom: 0.55px solid #ddd;
+  }
+
+  .title-header {
+    + .customPage-boundary {
+    }
+  }
+
+  .customPage-boundary {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .link-active {
+    color: #1271b5;
+  }
+
+}

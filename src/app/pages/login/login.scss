@@ -1,0 +1,15 @@
+page-login {
+  .form-login {
+    ion-list {
+      margin-bottom: 10px;
+    }
+    .list-ios > .item-block:first-child{
+      border: none;
+    }
+  }
+  .ion-content-login{
+    .title-header{
+      padding-bottom:0;
+    }
+  }
+}

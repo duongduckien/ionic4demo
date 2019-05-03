@@ -1,0 +1,16 @@
+layout-tabs {
+	ion-tabs .tabbar {
+	  .ion-ios-home-outline:before {
+
+	  }
+	  .ion-ios-search-strong-outline {
+	    &:before {
+	      content: "\f4a4";
+	    }
+	  }
+	}
+
+	.tabs-ios-light .tab-button[aria-selected=true], .tabs-ios-light .tab-button[aria-selected=true] .tab-button-icon{
+	  color: #0082ca;
+	}	
+}

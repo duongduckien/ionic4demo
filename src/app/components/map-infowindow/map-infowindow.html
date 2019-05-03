@@ -1,0 +1,12 @@
+<div class="listing-infowindow" (tap)="goToListingDetail(listing)">
+  <div *ngIf="listing.thumb" class="thumb-image">
+    <ion-thumbnail item-left [ngStyle]="{'background-image': 'url(' + listing.thumb + ')'}"></ion-thumbnail>
+  </div>
+  <div class="thumb-content">
+    <div class="listing-title" >{{ listing.title }}</div>
+    <div class="rating-stars" *ngIf="listing.reviews !== null">
+      <overall-ratings type="editor" [listing]="listing" *ngIf="listing.reviews.editor !== null"></overall-ratings>
+      <overall-ratings type="user" [listing]="listing" *ngIf="listing.reviews.users !== null"></overall-ratings>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div *ngIf="layout === undefined || layout === 'list'">
+  <ion-list class="list-layout">
+    <ion-item *ngFor="let review of reviews" (tap)="goToReviewDetail(review)">
+      <div class="avatar">
+        <img *ngIf="review.reviewer" [src]="review.reviewer.avatar.image" alt="">
+      </div>
+      <div class="review-content">
+        <div class="item-content">
+          <div class="item-card">
+            <div class="right-avatar">
+              <div class="title">
+                <ion-row>
+                  <ion-col col-5>
+                    <p class="listing-info font-bold">{{ review.listing.title }}</p>
+                  </ion-col>
+                  <ion-col col-7 class="flex-end">
+                    <rating [review]="review" *ngIf="review.rating !== null"></rating>
+                  </ion-col>
+                </ion-row>
+              </div>
+              <p *ngIf="review.comments" [innerHTML]="review.comments" class="review-comment"></p>
+              <div class="review-info">
+                <p *ngIf="review.reviewer !== null && review.created !== null">
+                  {{ 'REVIEWED_BY_USER_ON_DATE' | translate:{user:review.reviewer.name,date:review.created} }}
+                </p>
+                <p *ngIf="review.reviewer !== null && review.created == null">
+                  {{ 'REVIEWED_BY_USER' | translate:{user:review.reviewer.name} }}
+                </p>
+                <p *ngIf="review.reviewer == null && review.created !== null">
+                  {{ review.created }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+</div>
+
+<div *ngIf="layout === 'slider'">
+  <div class="slider-layout">
+    <ion-scroll scrollX="true" direction="x">
+      <div class="item" *ngFor="let review of reviews">
+        <div (tap)="goToReviewDetail(review)">
+          <div class="thumb thumb-card-150">
+            <ion-thumbnail *ngIf="review.listing.thumb" [ngStyle]="{'background-image': 'url(' + review.listing.thumb + ')'}"></ion-thumbnail>
+          </div>
+          <p class="listing-info font-bold">{{ review.listing.title }}</p>
+          <div class="item-content">
+            <div class="item-card">
+              <img class="avatar" [src]="review.reviewer.avatar.image" alt="">
+              <div class="right-avatar">
+                <p>
+                  <span class="reviewed">{{ 'REVIEWED_BY_USER_ON_DATE' | translate:{user:review.reviewer.name,date:review.created} }}</span>
+                </p>
+                <rating [review]="review" *ngIf="review.rating !== null"></rating>
+              </div>
+            </div>
+            <p *ngIf="review.comments" [innerHTML]="review.comments" class="review-comment"></p>
+          </div>
+        </div>
+      </div>
+    </ion-scroll>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar [color]="pageParams.headerBg">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="pageParams.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+    <ion-title *ngIf="!pageParams.headerTitle && pageParams.headerImg"><img *ngIf="pageParams.headerImg" [src]="pageParams.headerImg" /></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="title-header" *ngIf="pageParams.pageTitle">
+    <h2 class="page-title">{{ pageParams.pageTitle }}</h2>
+  </div>
+
+  <form (submit)="sendEmail()" *ngIf="!showSuccess" class="contact-form">
+
+    <ion-list>
+
+      <ion-item [ngClass]="isSubmit && email.name === '' ? 'invalid' : ''">
+        <ion-label stacked>{{ "LABEL_YOUR_NAME" | translate }}
+          <span class="required-field" *ngIf="isSubmit && !email.name">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="email.name" name="name"></ion-input>
+      </ion-item>
+
+      <ion-item [ngClass]="isSubmit && email.email === '' ? 'invalid' : ''">
+        <ion-label stacked>{{ "LABEL_YOUR_EMAIL" | translate }}
+          <span class="required-field" *ngIf="isSubmit && !email.email">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="email.email" name="email"></ion-input>
+      </ion-item>
+
+      <ion-item [ngClass]="isSubmit && email.subject === '' ? 'invalid' : ''">
+        <ion-label stacked>{{ "LABEL_SUBJECT" | translate }}
+          <span class="required-field" *ngIf="isSubmit && !email.subject">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="email.subject" name="subject"></ion-input>
+      </ion-item>
+
+      <ion-item [ngClass]="isSubmit && email.content === '' ? 'invalid' : ''">
+        <ion-label stacked>{{ "LABEL_MESSAGE" | translate }}
+          <span class="required-field" *ngIf="isSubmit && !email.content">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+        </ion-label>
+        <ion-textarea (ngModelChange)="onTextareaChange()" [(ngModel)]="email.content" name="content"></ion-textarea>
+      </ion-item>
+
+      <div padding>
+        <button ion-button class="btn-0082ca text-uppercase btn-default" color="primary" block>Send</button>
+      </div>
+
+    </ion-list>
+
+  </form>
+
+  <h3 *ngIf="showSuccess" padding>{{ 'SEND_MAIL_SUCCESS' | translate}}</h3>
+
+</ion-content>

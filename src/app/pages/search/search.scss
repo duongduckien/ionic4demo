@@ -1,0 +1,108 @@
+page-search {
+
+  .ion-header-search {
+    &:after {
+      content: none !important;
+    }
+    .toolbar-background {
+      border: none !important;
+    }
+  }
+  
+  .button-ios-light,
+  .button-md-light {
+      background-color: #eee;
+      border: 0.55px solid #ddd;
+  } 
+
+  .list-layout {
+    display: block;
+  }
+
+  .invisible {
+    visibility: hidden;
+  }
+
+  .result-message {
+      padding: 0 15px;
+  }
+  .box-input-search{
+      position: relative;
+      .icon{
+          position: absolute;
+          top: 50%;
+          left: 10px;
+          transform: translateY(-50%);
+          font-size: 25px;
+      }
+      .input{
+          padding-left: 30px;
+          .text-input{
+              margin-left: 10px;
+          }
+      }
+  }
+
+  .box-keywords-search {
+    .box-input-search {
+      background: #ffffff;
+      -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      padding: 0;
+      position: relative;
+      i {
+        font-size: 25px;
+        position: absolute;
+        left: 10px;
+        top: 12px;
+        line-height: 1;
+        color: #a3a3a3;
+      }
+      .text-input {
+        height: 50px;
+        margin: 0 0 0 40px;
+      }
+    }
+  }
+
+  .search-box-content {
+    .search-header {
+      .title-header h2.page-title {
+      }
+      .search-tabs {
+        .segment-button {
+          height: 40px;
+          padding: 5px 0;
+          border: none;
+          color: #000;
+          text-transform: uppercase;
+          font-weight: normal;
+          font-size: 15px;
+          border-bottom: 5px solid #ddd;
+          &.segment-activated {
+            color: #000;
+            border-bottom: 5px solid #f8e71b;
+            background: transparent;
+            border-left: none;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            border-radius: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  .favorite {
+    position: absolute;
+    text-align: center;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    .icon{
+      font-size: 30px;
+    }    
+  } 
+}

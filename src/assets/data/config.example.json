@@ -1,0 +1,354 @@
+{
+  "settings": {
+    "navigation": "sidemenu",
+    "headerBg": "blue",
+    "tabsBg": "light",
+    "lang": "en",
+    "langDir": "ltr",
+    "ratingSelector": "star"
+  },
+  "validate": {
+    "selectImages": {
+      "maximumImagesCount": 10,
+      "width": 2000,
+      "height": 2000,
+      "quality": 95
+    }
+  },
+  "pageDefaults": {
+    "listingsPage": {
+      "pageParams": {
+        "layout": "list"
+      },
+      "dataParams" : {}
+    },
+    "listingDetailPage": {
+      "pageParams": {
+        "directions": {
+          "enabled": true
+        },
+        "static_map": {
+          "enabled": true,
+          "zoom": 15,
+          "size": "640x300",
+          "maptype": "roadmap",
+          "marker": "",
+          "style": [
+          ]
+        },
+        "review_limit": 5
+      },
+      "dataParams" : {}
+    }
+  },
+  "menus": [
+    {
+      "title": "",
+      "items": [
+        {
+          "title": "Home",
+          "icon": "home",
+          "page": "WidgetsPage",
+          "params": {
+            "pageParams": {
+              "widgets": [
+                {
+                  "title": "Most Reviewed",
+                  "type": "ListingsPage",
+                  "widgetParams": {
+                    "layout": "slider",
+                    "mediaSize": "medium"
+                  },
+                  "dataParams": {
+                    "limit": 5,
+                    "sort": "reviews"
+                  }
+                },
+                {
+                  "title": "Top Rated",
+                  "type": "ListingsPage",
+                  "widgetParams": {
+                    "layout": "list",
+                    "mediaSize": "small"
+                  },
+                  "dataParams": {
+                    "limit": 5,
+                    "sort": "user-rating"
+                  }
+                },
+                {
+                  "title": "Latest Reviews",
+                  "type": "ReviewsPage",
+                  "widgetParams": {},
+                  "dataParams": {
+                    "limit": 5,
+                    "sort": "helpful"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Directories",
+          "icon": "folder",
+          "page": "DirectoriesPage",
+          "params": {
+            "pageParams": {},
+            "dataParams": {}
+          }
+        },
+        {
+          "title": "Search",
+          "icon": "search",
+          "page": "SearchPage",
+          "params": {
+            "pageParams": {
+              "pageTitle": ""
+            },
+            "dataParams": {}
+          }
+        },
+        {
+          "title": "Map",
+          "icon": "map",
+          "page": "MapPage",
+          "params": {
+            "pageParams": {
+              "geolocation": 1,
+              "zoom": 10,
+              "min_zoom": 4,
+              "restriction": [
+                "us"
+              ]
+            },
+            "dataParams": {
+              "limit": 50,
+              "object": "listing",
+              "includes": [
+                "geolocation",
+                "photos",
+                "reviews",
+                "listing_type"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "title": "Account",
+      "items": [
+        {
+          "title": "Login",
+          "icon": "person",
+          "page": "LoginPage",
+          "params": {
+            "pageParams": {
+              "pageTitle": ""
+            },
+            "dataParams": {}
+          }
+        },
+        {
+          "title": "Create an account",
+          "icon": "person-add",
+          "page": "RegisterPage",
+          "params": {
+            "pageParams": {
+              "pageTitle": ""
+            },
+            "dataParams": {}
+          }
+        },
+        {
+          "title": "My Account",
+          "icon": "person",
+          "page": "AccountPage",
+          "params": {
+            "pageParams": {
+              "pageTitle": ""
+            },
+            "dataParams": {}
+          }
+        }
+      ]
+    },
+    {
+      "title": "Listings",
+      "items": [
+        {
+          "title": "Latest Listings",
+          "page": "ListingsPage",
+          "icon": "menu",
+          "params": {
+            "pageParams": {
+              "headerTitle": "",
+              "layout": "grid",
+              "mediaSize": "medium",
+              "showSearchIcon": true
+            },
+            "dataParams": {
+              "limit": 10,
+              "sort": "created"
+            }
+          }
+        },
+        {
+          "title": "Top Rated Listings",
+          "page": "ListingsPage",
+          "icon": "menu",
+          "params": {
+            "pageParams": {
+              "headerTitle": "",
+              "showSearchIcon": true
+            },
+            "dataParams": {
+              "limit": 10,
+              "sort": "user-rating"
+            }
+          }
+        },
+        {
+          "title": "Most Reviewed Listings",
+          "page": "ListingsPage",
+          "icon": "menu",
+          "params": {
+            "pageParams": {
+              "headerTitle": "",
+              "layout": "card",
+              "mediaSize": "large",
+              "showSearchIcon": true
+            },
+            "dataParams": {
+              "limit": 10,
+              "sort": "reviews"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "title": "Reviews",
+      "items": [
+        {
+          "title": "Latest Reviews",
+          "page": "ReviewsPage",
+          "icon": "menu",
+          "params": {
+            "pageParams": {
+              "pageTitle": ""
+            },
+            "dataParams": {}
+          }
+        },
+        {
+          "title": "Most Helpful Reviews",
+          "page": "ReviewsPage",
+          "icon": "menu",
+          "params": {
+            "pageParams": {
+              "pageTitle": ""
+            },
+            "dataParams": {}
+          }
+        },
+        {
+          "title": "Write Review",
+          "page": "WriteReviewPage",
+          "icon": "menu",
+          "params": {
+            "pageParams": {
+              "pageTitle": ""
+            },
+            "dataParams": {}
+          }
+        }
+      ]
+    },
+    {
+      "title": "Media",
+      "items": [
+        {
+          "title": "Latest Photos",
+          "page": "PhotosPage",
+          "icon": "image",
+          "params": {
+            "pageParams": {
+              "sort": "created",
+              "limit": 15,
+              "layout": "grid"
+            },
+            "dataParams": {}
+          }
+        },
+        {
+          "title": "Latest Videos",
+          "page": "VideosPage",
+          "icon": "videocam",
+          "params": {
+            "pageParams": {
+              "limit": 15,
+              "layout": "grid"
+            },
+            "dataParams": {
+              "sort": "created"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "title": "App",
+      "items": [
+        {
+          "title": "About",
+          "page": "CustomPage",
+          "icon": "menu",
+          "params": {
+            "pageParams": {
+              "pageTitle": "",
+              "pageHtml": "<p>Welcome to our app, built with <a href=\"https://origamiappbuilder.com\">Origami App Builder</a><p>"
+            },
+            "dataParams": {}
+          }
+        },
+        {
+          "title": "External Iframe",
+          "page": "CustomPage",
+          "icon": "menu",
+          "params": {
+            "pageParams": {
+              "pageTitle": "",
+              "iframeURL": "https://www.origamiappbuilder.com"
+            },
+            "dataParams": {}
+          }
+        },
+        {
+          "title": "External Iframe No Title",
+          "page": "CustomPage",
+          "icon": "menu",
+          "params": {
+            "pageParams": {
+              "pageTitle": "",
+              "iframeURL": "https://www.origamiappbuilder.com"
+            },
+            "dataParams": {}
+          }
+        },
+        {
+          "title": "Contact",
+          "page": "ContactPage",
+          "icon": "menu",
+          "params": {
+            "pageParams": {
+              "pageTitle": ""
+            },
+            "dataParams": {}
+          }
+        }
+      ]
+    }
+  ]
+}

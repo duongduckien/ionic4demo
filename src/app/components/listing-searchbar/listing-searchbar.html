@@ -1,0 +1,16 @@
+<ion-toolbar class="search-keywords">
+  <ion-searchbar [(ngModel)]="search.q" (ionInput)="performSearch()" placeholder="Search" debounce=500></ion-searchbar>
+  <ion-buttons end>
+    <button ion-button icon-only (tap)="openFilters($event)">
+      <ion-icon name="options"></ion-icon>
+    </button>
+  </ion-buttons>    
+</ion-toolbar>
+<ion-toolbar class="search-location"> 
+  <ion-searchbar type="text" [(ngModel)]="search.location" (ionInput)="updateLocation()" placeholder="Location" debounce=500></ion-searchbar>
+  <ion-buttons end>
+    <button ion-button icon-only (tap)="locateMe()">
+      <ion-icon name="navigate-outline"></ion-icon>
+    </button>
+  </ion-buttons>    
+</ion-toolbar>

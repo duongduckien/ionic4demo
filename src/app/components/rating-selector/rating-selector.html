@@ -1,0 +1,19 @@
+<div *ngIf="type === 'slider'" [ngClass]="[type === 'slider' ? 'slider': '']" class="wrap-rating-slider">
+  <!--<div class="remove" (tap)="removeData()">-->
+    <!--<span></span>-->
+  <!--</div>-->
+  <ion-range (ngModelChange)="handleOnChange($event)" [(ngModel)]="inputValue" [snaps]="true" [name]="name" [min]="min" [max]="max"
+    [step]="step" class="range-slider">
+    <ion-label range-right> {{ label }} </ion-label>
+  </ion-range>
+</div>
+
+<div *ngIf="type === 'star'"  [ngClass]="[type === 'star' ? 'star': '']" class="wrap-rating-star">
+  <!--<div class="remove" (tap)="removeData()">-->
+    <!--<span></span>-->
+  <!--</div>-->
+  <ion-range (ngModelChange)="handleOnChange($event)" [(ngModel)]="inputValue" [snaps]="true" [name]="name" [min]="min" [max]="max"
+    [step]="step">
+    <ion-label range-right> {{ label }} </ion-label>
+  </ion-range>
+</div>

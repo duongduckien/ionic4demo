@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar [color]="pageParams.headerBg">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="pageParams.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+    <ion-title *ngIf="!pageParams.headerTitle && pageParams.headerImg"><img *ngIf="pageParams.headerImg" [src]="pageParams.headerImg" /></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="media-upload">
+
+  <div class="title-header" *ngIf="pageParams.pageTitle">
+    <h2 class="page-title">{{ pageParams.pageTitle }}</h2>
+  </div>
+
+  <div padding>
+    <button ion-button block color="primary" click="addPhoto()">Add a photo</button>
+  </div>
+
+  <div class="uploaded-images" *ngIf="images.length > 0">
+    <div class="image-container" *ngFor="let image of images">
+      <img [src]="image">
+    </div>
+  </div>
+
+</ion-content>

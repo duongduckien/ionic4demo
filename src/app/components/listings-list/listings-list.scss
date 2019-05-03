@@ -1,0 +1,38 @@
+listings-list {
+  .item {
+    padding-left:0;
+    touch-action: auto !important;
+    .item-inner{
+      padding-left:15px;
+    }
+  }
+  .thumb {
+    position: relative;
+    float: left;
+    margin: 0 16px 0 0;
+  } 
+  .item-content {
+    touch-action: auto !important;
+    height: 80px;
+    width: calc(100% - 50px);
+    display: block;    
+    h2 {
+      text-overflow: ellipsis;
+      overflow: hidden;    
+      margin-bottom: 5px;    
+    }
+  }   
+  .favorite {
+    top:50%;
+    transform: translateY(-50%);
+    right: 10px;
+    width: 45px;
+    height: 45px;
+    .unlike{
+      color: #ddd;
+    }
+  }
+  .rating-stars, h2 {
+    touch-action: auto !important;
+  }
+}

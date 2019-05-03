@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-navbar [color]="pageParams.headerBg">
+    <ion-title *ngIf="pageParams.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+    <ion-title *ngIf="!pageParams.headerTitle && pageParams.headerImg">
+      <img *ngIf="pageParams.headerImg" [src]="pageParams.headerImg" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="review-detail">
+
+  <div class="review-content" *ngIf="reviewWasLoaded">
+
+    <div *ngIf="goToListing" class="listing-info" [ngClass]="goToListing ? 'linked' : ''" (tap)="gotoListingDetail()">
+      {{ review.listing.title }} <ion-icon name="ios-arrow-forward"></ion-icon>
+    </div>
+    
+    <h2 class="page-title" *ngIf="review.title">{{ review.title }}</h2>
+    
+    <ion-item no-lines no-padding>
+
+      <ion-avatar item-start>
+        <img *ngIf="review.reviewer.avatar.image" [src]="review.reviewer.avatar.image" alt="">
+      </ion-avatar>
+
+      <div class="review-content">
+        
+        <rating [review]="review" *ngIf="review.rating !== null"></rating>
+        
+        <p *ngIf="review.reviewer !== null && review.created !== null">
+          {{ 'REVIEWED_BY_USER_ON_DATE' | translate:{user:review.reviewer.name,date:review.created} }}
+        </p>
+        <p *ngIf="review.reviewer !== null && review.created == null">
+          {{ 'REVIEWED_BY_USER' | translate:{user:review.reviewer.name} }}
+        </p>
+        <p *ngIf="review.reviewer == null && review.created !== null">
+          {{ review.created }}
+        </p>
+      
+      </div>
+
+    </ion-item>
+
+    <p *ngIf="review.comments" [innerHTML]="review.comments"></p>
+
+  </div>
+  
+    <custom-fields *ngIf="fieldsLoaded" [entry]="review" layout="stacked"></custom-fields>
+
+    <div class="review-photos j-scroll" *ngIf="review?.photos?.length > 0">
+      <h3 class="page-section">{{ 'PHOTOS' | translate }}</h3>
+      <ion-scroll scrollX="true" direction="x" class="media-list">
+        <div class="item" *ngFor="let photo of review.photos; let i = index">
+          <div class="inner-item" [ngStyle]="photo.image ? {'background-image': 'url(' + photo.image + ')'} : ''" (tap)="openPhoto(i)">
+          </div>
+        </div>
+      </ion-scroll>
+    </div>
+
+    <div class="review-videos j-scroll" *ngIf="review?.videos?.length > 0">
+      <h3 class="page-section">{{ 'VIDEOS' | translate }}</h3>
+      <ion-scroll scrollX="true" direction="x" class="media-list">
+        <div class="item" *ngFor="let video of review.videos; let i = index">
+          <div class="inner-item" [ngStyle]="video.image ? {'background-image': 'url(' + video.image + ')'} : ''" (tap)="openVideo(i)">
+            <div class="btn-play play-sm">
+              <ion-icon name="play" class="icon"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </ion-scroll>
+    </div>
+
+    <div class="review-discussions" *ngIf="review?.discussions?.total > 0">
+
+      <h3 class="page-section">{{ 'REVIEW_DISCUSSIONS' | translate }}</h3>
+
+      <div padding text-center class="loading-spinner" *ngIf="loadingReviewComments">
+        <ion-spinner></ion-spinner>
+      </div>
+
+      <ion-list>
+        <ion-item *ngFor="let discussion of review?.discussions?.items">
+          <span>"{{ discussion.comment }}"</span> by
+          <span>{{ discussion.user.name }}</span> on
+          <span>{{ discussion.created }}</span>
+        </ion-item>
+      </ion-list>
+
+    </div>
+
+
+</ion-content>

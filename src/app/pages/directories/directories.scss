@@ -1,0 +1,27 @@
+page-directories {
+  .thumb-image {
+    display: inline-block;
+    margin-right: 10px;
+    width: 70px;
+    height: 70px;
+    background-size: cover;
+    touch-action: auto !important;
+  }
+  h2 {
+    display: inline-block;
+    vertical-align: top;
+  }
+  ion-avatar{
+    margin-bottom:0 !important;
+  }
+}
+listings-card{
+  .wrap-listing-card{
+    overall-ratings{
+      display: inline-block;
+      &[type="user"]{
+        float: right;
+      }
+    }
+  }
+}

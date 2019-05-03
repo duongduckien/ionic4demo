@@ -1,0 +1,22 @@
+<ion-list>
+  <ion-item>
+    <ion-label stacked>Sort</ion-label>
+    <ion-select [(ngModel)]="filters.sort">
+      <ion-option value="created">Newest</ion-option>
+      <ion-option value="-created">Oldest</ion-option>
+      <ion-option value="title">Title</ion-option>
+      <ion-option value="user-rating">User Rating</ion-option>
+      <ion-option value="distance">Distance</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Radius <ion-badge item-right>{{filters.radius}}</ion-badge></ion-label>
+    <ion-range [(ngModel)]="filters.radius" min="5" max="100" step="5">
+      <ion-label range-left>5</ion-label>
+      <ion-label range-right>100</ion-label>
+    </ion-range>
+  </ion-item>
+  <ion-item>
+    <button ion-button color="primary" block (tap)="close()">Apply</button>
+  </ion-item>
+</ion-list>

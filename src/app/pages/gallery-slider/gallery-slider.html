@@ -1,0 +1,37 @@
+<ion-slides #Slides [initialSlide]="initialSlide" (ionSlideDidChange)="endChange()" (ionSlideReachEnd)="slideEnd()" (panend)="closeModal($event)">
+
+  <ion-slide *ngFor="let item of items; let i = index">
+
+    <div class="fitted-header" *ngIf="direction">
+      <div class="user-avatar">
+        <img alt="" [src]="item.avatarUrl">
+        <span class="user">{{ item.user }}</span>
+      </div>
+      <div class="closeBtn" (tap)="closeView()">
+        <ion-icon ios="ios-close" md="md-close"></ion-icon>
+      </div>
+    </div>
+
+    <div class="fitted-header rtl" *ngIf="!direction">
+      <div class="user-avatar">
+        <img alt="" [src]="item.avatarUrl">
+        <span class="user">{{ item.user }}</span>
+      </div>
+      <div class="closeBtn" (tap)="closeView()">
+        <ion-icon ios="ios-close" md="md-close"></ion-icon>
+      </div>
+    </div>
+
+    <img *ngIf="type === 'photo'" alt="" [src]="item.url">
+
+    <iframe *ngIf="type === 'video' && i == key" width="100%" height="280" [src]="item.url | pipesUrl" frameborder="0" allowfullscreen></iframe>
+
+    <div class="fitted-footer">
+      <div class="fitted-image-date">{{ item.date }}</div>
+      <div class="sep"></div>
+      <div class="fitted-image-listing-title" (tap)="toListingDetail(item.id)">{{ item.listing }}</div>
+    </div>
+
+  </ion-slide>
+
+</ion-slides>

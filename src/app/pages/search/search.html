@@ -1,0 +1,112 @@
+<ion-header class="ion-header-search">
+  <ion-navbar [color]="pageParams.headerBg">
+    <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title *ngIf="pageParams.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+    <ion-title *ngIf="!pageParams.headerTitle && pageParams.headerImg"><img *ngIf="pageParams.headerImg" [src]="pageParams.headerImg" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="title-header" *ngIf="pageParams.pageTitle">
+    <h2 class="page-title">{{ pageParams.pageTitle }}</h2>
+  </div>
+
+  <div class="search-box-content">
+    <div class="search-header">
+      <div class="title-header" *ngIf="pageParams.pageTitle">
+        <h2 class="page-title"></h2>
+      </div>
+      <div *ngIf="pageParams.search.length > 1" class="search-tabs">
+        <ion-segment [(ngModel)]="searchMode">
+          <ion-segment-button *ngIf="pageParams.search.indexOf('listings') !== -1" value="listings">{{ 'SEARCH_LISTINGS' | translate }}</ion-segment-button>
+          <ion-segment-button *ngIf="pageParams.search.indexOf('reviews') !== -1" value="reviews">{{ 'SEARCH_REVIEWS' | translate }}</ion-segment-button>
+        </ion-segment>
+      </div>
+    </div>
+
+    <div [ngSwitch]="searchMode">
+
+      <div *ngSwitchCase="'listings'">
+
+        <form (submit)="findListings()">
+
+          <div class="box-keywords-search">
+
+            <div class="box-input-search">
+              <ion-icon name="md-search"></ion-icon>
+              <ion-input type="text" placeholder="{{ 'SEARCH_KEYWORDS_PLACEHOLDER' | translate}}" [(ngModel)]="listingSearch.q" name="listings['q']"></ion-input>
+            </div>
+
+            <div padding>
+              <button 
+                ion-button color="while" 
+                class="btn-0082ca text-uppercase btn-default" 
+                [disabled]="listingSearch.q == ''" block
+              >
+                {{ 'BTN_SEARCH' | translate }}
+              </button>
+            </div>
+
+          </div>
+        </form>
+
+        <p class="result-message" *ngIf="listingsMessage">{{ 'NO_RESULT' | translate }}</p>
+
+        <ion-list *ngIf="listings.length > 0" class="list-layout" approxItemHeight="80px">
+          <ion-item *ngFor="let listing of listings" [ngClass]="showListings ? '' : 'invisible'">
+              <listings-list *ngIf="listing.id !== undefined" [listing]="listing" (onToggleFavorite)="onToggleFavorite($event)" (onGoToListingDetail)="onGoToListingDetail($event)" ></listings-list>
+          </ion-item>
+        </ion-list>  
+
+      </div>
+
+      <div *ngSwitchCase="'reviews'">
+
+        <form (submit)="findReviews()">
+
+          <div class="box-keywords-search">
+
+            <div class="box-input-search">
+              <ion-icon name="md-search"></ion-icon>
+              <ion-input type="text" placeholder="{{ 'SEARCH_KEYWORDS_PLACEHOLDER' | translate}}" [(ngModel)]="reviewSearch.q" name="reviews['q']"></ion-input>
+            </div>
+
+            <div padding>
+              <button 
+                ion-button 
+                color="while" 
+                class="btn-0082ca text-uppercase btn-default" 
+                [disabled]="reviewSearch.q == ''" 
+                block
+              >
+               {{ 'BTN_SEARCH' | translate }}
+              </button>
+            </div>
+
+          </div>
+
+        </form>
+
+        <p class="result-message" *ngIf="reviewsMessage">{{ 'NO_RESULT' | translate }}</p>
+
+        <ion-list *ngIf="reviews.length > 0" class="list-layout" approxItemHeight="90px">
+          <ion-item *ngFor="let review of reviews" (tap)="goToReviewDetail(review)">
+            <reviews-list [review]="review" [whichTitle]="'listing'"></reviews-list>
+          </ion-item>
+        </ion-list>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <ion-infinite-scroll *ngIf="moreResults()" (ionInfinite)="findResults($event)" threshold="20%">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  
+</ion-content>

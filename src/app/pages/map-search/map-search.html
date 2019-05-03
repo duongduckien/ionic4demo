@@ -1,0 +1,58 @@
+<ion-header class="headerSearch">
+  <ion-navbar [color]="pageParams.headerBg">
+    <ion-buttons start (tap)="cancel()">
+      <button ion-button>{{ translations.cancel }}</button>
+    </ion-buttons>
+
+    <ion-title></ion-title>
+
+    <ion-buttons end (tap)="search()">
+      <button ion-button>{{ translations.search }}</button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <div class="map-search-input">
+    <div class="input-field two-icon">
+      <ion-icon name="search" class="icon-left"></ion-icon>
+      <ion-input type="text" placeholder="" name="q" [(ngModel)]="q" (tap)="showCategories()"></ion-input>
+      <ion-icon *ngIf="q.length > 0" name="md-close" class="icon-right" (tap)="clearInput('q')"></ion-icon>
+    </div>
+
+    <div class="input-field two-icon">
+      <ion-icon name="pin" class="icon-left"></ion-icon>
+      <ion-input type="text" name="address" id="searchTextField" [(ngModel)]="address" (input)="updateAutoCompletes()" (tap)="showSuggestion()"></ion-input>
+      <ion-icon *ngIf="address.length > 0" name="md-close" class="icon-right" (tap)="clearInput('address')"></ion-icon>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div class="map-search-content" *ngIf="isCategories">
+    <div class="map-search-list-items">
+      <ion-list radio-group [(ngModel)]="catSelected" id="list-cat">
+        <div *ngFor="let category of categories">
+          <ion-list-header>{{ category.title }}</ion-list-header>
+
+          <div *ngFor="let item of category.items">
+            <ion-item (tap)="chooseCategories(item.title, item.id)" [ngClass]="[unChecked ? 'un-checked' : '', (valueSelected === item.id) ? 'has-checked' : '']">
+              <ion-label>{{ item.title }}</ion-label>
+              <ion-radio value="{{ item.id }}"></ion-radio>
+            </ion-item>
+          </div>
+        </div>
+      </ion-list>
+    </div>
+  </div>
+
+  <div class="map-search-content" *ngIf="!isCategories">
+    <div class="map-search-list-items">
+      <ion-list radio-group>
+        <ion-item *ngFor="let item of autocompleteItems" (tap)="chooseAddress(item)">
+          <ion-label>
+            <ion-icon name="pin"></ion-icon> {{ item.description }}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

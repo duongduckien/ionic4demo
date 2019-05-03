@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar [color]="pageParams.headerBg">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="pageParams.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+    <ion-title *ngIf="!pageParams.headerTitle && pageParams.headerImg"><img *ngIf="pageParams.headerImg" [src]="pageParams.headerImg" /></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  
+  <div class="title-header" *ngIf="pageParams.pageTitle">
+    <h2 class="page-title">{{ pageParams.pageTitle }}</h2>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let directory of directories" (tap)="goToCategoriesPage(directory)" (tap)="trackView(directory)">
+      <ion-avatar item-start>
+        <div class="thumb-image" [ngStyle]="directory.image ? {'background-image': 'url(' + directory.image + ')'} : ''"></div>
+      </ion-avatar>
+      <h2>{{ directory.title }}</h2>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

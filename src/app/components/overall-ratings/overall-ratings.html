@@ -1,0 +1,9 @@
+<div *ngIf="displayRatings" [ngClass]="{'rating-stars-container': true,'ratings-large': this.size == 'large'}">
+    <span class="editor-rating-icon" *ngIf="type === 'editor'"></span>
+    <span class="user-rating-icon" *ngIf="type === 'user'"></span>
+    <div [ngClass]="classes">
+        <div [style.width]="ratingPercent">&nbsp;</div>
+    </div>
+    <div class="overall-rating" *ngIf="reviews.rating_count > 1"><span class="rating-value">{{ reviews.rating | number:'1.0-1' }}</span> <span class="rating-count">{{ reviews.rating_count }} {{ 'RATINGS' | translate }}</span></div>
+    <div class="overall-rating" *ngIf="reviews.rating_count < 2"><span class="rating-value">{{ reviews.rating | number:'1.0-1' }}</span> <span class="rating-count">{{ reviews.rating_count }} {{ 'RATING' | translate }}</span></div>
+</div>

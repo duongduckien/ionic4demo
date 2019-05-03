@@ -1,0 +1,52 @@
+<ion-content>
+
+  <div class="title-header" *ngIf="pageParams.pageTitle">
+    <h2 class="page-title">{{ pageParams.pageTitle }}</h2>
+  </div>
+
+  <div class="my-account-content">
+    <div class="my-account-top-toggle" [ngStyle]="{'background-color': backgroundColor}">
+      <button ion-button menuToggle class="bar-button-menutoggle-ios" *ngIf="pageParams.navigation !== 'tabs'">
+        <ion-icon name="menu" ></ion-icon>
+      </button>
+    </div>
+
+    <div class="my-account-info">
+     
+      <div class="top-info">
+        <div text-center class="top-info__avatar" *ngIf="user?.avatar?.image">
+          <img [src]="user?.avatar?.image" />
+        </div>
+        <div class="top-info__username">
+          {{ user?.name }}
+        </div>
+      </div>
+
+      <ion-list *ngIf="status.enableMyListings || status.enableMyReviews || status.enableMyFavorites" class="list-submissions">
+
+        <ion-item (tap)="goToMyListings()" *ngIf="status.enableMyListings">
+          <ion-icon name="document" item-start></ion-icon>
+          {{ 'ACCOUNT_MY_LISTINGS' | translate }}
+        </ion-item>
+      
+        <ion-item (tap)="goToMyReviews()" *ngIf="status.enableMyReviews">
+          <ion-icon name="chatbubbles" item-start></ion-icon>
+          {{ 'ACCOUNT_MY_REVIEWS' | translate }}
+        </ion-item>
+      
+        <ion-item (tap)="goToMyFavorites()" *ngIf="status.enableMyFavorites">
+          <ion-icon name="md-heart" item-start></ion-icon>
+          {{ 'ACCOUNT_MY_FAVORITES' | translate }}
+        </ion-item>                
+      
+      </ion-list>   
+
+    </div>
+
+    <div class="button-logout" style="margin: 10px">
+      <button block class="btn-logout text-uppercase" ion-button color="danger" (tap)="logout()">{{ 'LOGOUT' | translate }}
+      </button>
+    </div>
+  </div>
+  
+</ion-content>

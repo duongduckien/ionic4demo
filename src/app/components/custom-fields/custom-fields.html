@@ -1,0 +1,16 @@
+<ion-list *ngFor="let group of fieldGroups" [ngClass]="layout" class="fields-container">
+  <ion-list-header *ngIf="group.show_title">{{ group.title }}</ion-list-header>
+  <ion-item *ngFor="let field of group.fields" [ngClass]="field.name" class="field-container" text-wrap>
+    <div>       
+      <div *ngIf="field.show_title" class="field-label">{{field.title}}</div>
+      <ul class="field-value">
+        <li *ngFor="let selected of field.selected" [ngClass]="!selected?.image ? 'option-text' : 'option-image'">
+          <span *ngIf="field.type !== 'relatedlisting'" [innerHTML]="selected.output"></span>
+          <span class="chip" *ngIf="field.type == 'relatedlisting'" href="#" (tap)="goToListingDetail(selected.value)">
+            {{selected.output}}
+          </span>
+        </li>
+      </ul>
+    </div>
+  </ion-item>
+</ion-list>

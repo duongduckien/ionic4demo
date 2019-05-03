@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-navbar [color]="pageParams.headerBg">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title *ngIf="pageParams.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+
+    <ion-title *ngIf="!pageParams.headerTitle && pageParams.headerImg">
+      <img *ngIf="pageParams.headerImg" [src]="pageParams.headerImg" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="title-header" *ngIf="pageParams.pageTitle">
+    <h2 class="page-title">{{ pageParams.pageTitle }}</h2>
+  </div>
+
+  <div class="grid-layout grid-3" *ngIf="pageParams.layout == 'grid'" [virtualScroll]="gridRows" approxItemHeight="125px">
+    <ion-grid>
+      <ion-row *virtualItem="let row; let i = index;">
+        <ion-col col-4 no-padding *ngFor="let column of gridColumns; let col = index;">
+          <div *ngIf="row[col] !== null" class="thumb thumb-grid-3" (tap)="openVideo(row[col].index)">
+            <ion-thumbnail *ngIf="row[col].image" [ngStyle]="row[col].image ? {'background-image': 'url(' + row[col].image + ')'} : ''">
+              <div class="btn-play play-sm">
+                <ion-icon name="play"></ion-icon>
+              </div>
+            </ion-thumbnail>
+          </div>        
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="card-layout" *ngIf="pageParams.layout == 'card'" [virtualScroll]="videos" approxItemHeight="375px">
+    <ion-card *virtualItem="let video; let i = index;">
+      <ion-item *ngIf="showUser(video) && showCreated(video)">
+        <ion-avatar item-start *ngIf="showUser(video)">
+          <img [src]="video.user.avatar.image" alt="">
+        </ion-avatar>
+        <h2 *ngIf="showUser(video)">{{ video.user.name }}</h2>
+        <p *ngIf="showCreated(video)">{{ video.created }}</p>
+      </ion-item>
+      <div class="thumb thumb-card" (tap)="openVideo(i)">
+        <ion-thumbnail *ngIf="video.image" [ngStyle]="video.image ? {'background-image': 'url(' + video.image + ')'} : ''">
+          <div class="btn-play play-lg">
+            <ion-icon name="play"></ion-icon>
+          </div>
+        </ion-thumbnail>
+      </div> 
+      <ion-card-content>
+        <p>{{ video.listing.title }}</p>
+        <p *ngIf="video.caption != ''">{{ video.caption }}</p>
+      </ion-card-content>        
+    </ion-card>
+  </div>
+
+  <ion-infinite-scroll *ngIf="moreVideos()" (ionInfinite)="loadVideos($event)" threshold="20%">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

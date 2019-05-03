@@ -1,0 +1,166 @@
+<ion-header>
+  <ion-navbar [color]="pageParams.headerBg">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="pageParams.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+    <ion-title *ngIf="!pageParams.headerTitle && pageParams.headerImg">
+      <img *ngIf="pageParams.headerImg" [src]="pageParams.headerImg" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="auth-account" *ngIf="!toggle">
+    <div padding>
+      <p class="text-top" *ngIf="pageParams.integrations?.facebook.enableLogin || pageParams.integrations?.google.enableLogin">{{ 'AUTH_SOCIAL_LOGIN' | translate }}</p>
+      <ion-grid>
+        <ion-row>
+          <ion-col *ngIf="pageParams.integrations?.facebook.enableLogin" class="pr-5">
+            <button ion-button full icon-left color="primary" class="btn-facebook" (tap)="loginFacebook()">
+            <span class="fb-icon">
+              <ion-icon class="color-facebook" name="logo-facebook"></ion-icon>
+            </span>
+              {{'FACEBOOK' | translate}}
+            </button>
+          </ion-col>
+          <ion-col  *ngIf="pageParams.integrations?.google.enableLogin" class="pl-5">
+            <button ion-button full icon-left color="primary" class="btn-google" (tap)="loginGoogle()">
+           <span class="icon-register">
+             <ion-icon class="color-googleplus" name="logo-googleplus"></ion-icon>
+           </span>
+              {{'GOOGLE' | translate}}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="title-header" *ngIf="pageParams.pageTitle">
+        <h2 class="page-title" *ngIf="pageParams.integrations?.facebook.enableLogin || pageParams.integrations?.google.enableLogin">{{ pageParams.pageTitle }}</h2>
+      </div>
+      <div class="text-email-register" *ngIf="pageParams.integrations?.facebook.enableLogin || pageParams.integrations?.google.enableLogin">
+        <p class="text-top">{{ 'AUTH_EMAIL_LOGIN' | translate }}</p>
+      </div>
+    </div>
+
+    <form *ngIf="dataParams.create_review">
+      <div>
+        <ion-list>
+          <ion-item [ngClass]="[((guest.name == '' || guest.name === undefined) && isGuestSubmit) ? 'invalid' : '']">
+            <ion-label stacked>{{'REVIEWFORM_NAME_LABEL' | translate}}
+              <span class="required-field" *ngIf="guest.name === '' && isGuestSubmit">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+            </ion-label>
+            <ion-input type="text" placeholder="{{'NAME_PLACEHOLDER' | translate}}" [(ngModel)]="guest.name" name="name"></ion-input>
+          </ion-item>
+          <ion-item [ngClass]="[((guest.email == '' || guest.email === undefined) && isGuestSubmit) ? 'invalid' : '']">
+            <ion-label stacked>{{'REVIEWFORM_EMAIL_LABEL' | translate}}
+              <span class="required-field" *ngIf="guest.email === '' && isGuestSubmit">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+            </ion-label>
+            <ion-input type="email" placeholder="{{'EMAIL_PLACEHOLDER' | translate}}" [(ngModel)]="guest.email" name="email"></ion-input>
+          </ion-item>
+        </ion-list>
+        <div padding>
+          <button ion-button (tap)="continueAsGuest()" full color="primary">{{'CONTINUE_AS_GUEST' | translate}}</button>
+        </div>
+      </div>
+    </form>
+
+    <form (submit)="continueAsUser()">
+      <ion-list>
+        <ion-item [ngClass]="[((account.email == '' || account.email === undefined) && isUserSubmit) ? 'invalid' : '']">
+          <ion-label stacked>{{'EMAIL_LABEL' | translate}}
+            <span class="required-field" *ngIf="account.email === '' && isUserSubmit">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+          </ion-label>
+          <ion-input type="email" placeholder="{{'EMAIL_PLACEHOLDER' | translate}}" [(ngModel)]="account.email" name="email"></ion-input>
+        </ion-item>
+        <ion-item [ngClass]="[((account.password == '' || account.password === undefined) && isUserSubmit) ? 'invalid' : '']">
+          <ion-label stacked>{{'PASSWORD_LABEL' | translate}}
+            <span class="required-field" *ngIf="account.password === '' && isUserSubmit">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+          </ion-label>
+          <ion-input type="password" placeholder="{{'PASSWORD_PLACEHOLDER' | translate}}" [(ngModel)]="account.password" name="password"></ion-input>
+        </ion-item>
+      </ion-list>
+      <div padding>
+        <button ion-button type="submit" full color="primary">{{'LOG_IN' | translate}}</button>
+      </div>
+    </form>
+      <button ion-button full clear color="primary" (tap)="gotoRegister()">{{'CREATE_AN_ACCOUNT' | translate}}</button>
+  </div>
+  <!--  -->
+  <div *ngIf="toggle">
+
+    <div padding>
+      <p class="text-top" *ngIf="pageParams.integrations?.facebook.enableLogin || pageParams.integrations?.google.enableLogin">Register with</p>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col *ngIf="pageParams.integrations?.facebook.enableLogin" class="non-padding pr-5">
+            <button ion-button full icon-left color="primary" class="btn-facebook" (tap)="loginFacebook()">
+              <div class="fb-icon">
+                <ion-icon class="color-facebook" name="logo-facebook"></ion-icon>
+              </div>
+              {{'FACEBOOK' | translate}}
+            </button>
+          </ion-col>
+          <ion-col *ngIf="pageParams.integrations?.google.enableLogin" class="non-padding pl-5">
+            <button ion-button full icon-left color="primary" class="btn-google" (tap)="loginGoogle()">
+              <div class="icon-register">
+                <ion-icon class="color-googleplus" name="logo-googleplus"></ion-icon>
+              </div>
+              {{'GOOGLE' | translate}}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="text-email-register" *ngIf="pageParams.integrations?.facebook.enableLogin || pageParams.integrations?.google.enableLogin">
+        <p class="text-top">{{ 'AUTH_EMAIL_LOGIN' | translate }}</p>
+      </div>
+    </div>
+
+    <form>
+      <ion-list>
+        <ion-item [ngClass]="[!register_account.name && isRegisterSubmit ? 'invalid' : '']">
+          <ion-label stacked>{{'NAME_LABEL' | translate}}
+            <span class="required-field" *ngIf="!register_account.name && isRegisterSubmit">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+          </ion-label>
+          <ion-input type="text" placeholder="{{'NAME_PLACEHOLDER' | translate}}" [(ngModel)]="register_account.name" name="name"></ion-input>
+        </ion-item>
+
+        <ion-item [ngClass]="[!register_account.display_name && isRegisterSubmit ? 'invalid' : '']">
+          <ion-label stacked>{{'DISPLAY_NAME_LABEL' | translate}}
+            <span class="required-field" *ngIf="!register_account.display_name && isRegisterSubmit">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+          </ion-label>
+          <ion-input type="text" placeholder="{{'DISPLAY_NAME_PLACEHOLDER' | translate}}" [(ngModel)]="register_account.display_name"
+            name="display_name"></ion-input>
+        </ion-item>
+
+        <ion-item [ngClass]="[!register_account.email && isRegisterSubmit ? 'invalid' : '']">
+          <ion-label stacked>{{'EMAIL_LABEL' | translate}}
+            <span class="required-field" *ngIf="!register_account.email && isRegisterSubmit">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+          </ion-label>
+          <ion-input type="email" placeholder="{{'EMAIL_PLACEHOLDER' | translate}}" [(ngModel)]="register_account.email" name="email"></ion-input>
+        </ion-item>
+
+        <ion-item [ngClass]="[!register_account.password && isRegisterSubmit ? 'invalid' : '']">
+          <ion-label stacked>{{'PASSWORD_LABEL' | translate}}
+            <span class="required-field" *ngIf="!register_account.password && isRegisterSubmit">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+          </ion-label>
+          <ion-input type="password" placeholder="{{'PASSWORD_PLACEHOLDER' | translate}}" [(ngModel)]="register_account.password" name="password"></ion-input>
+        </ion-item>
+
+        <ion-item [ngClass]="[!register_account.password_confirmation && isRegisterSubmit ? 'invalid' : '']">
+          <ion-label stacked>{{'PASSWORD_CONFIRMATION_LABEL' | translate}}
+            <span class="required-field" *ngIf="!register_account.password_confirmation && isRegisterSubmit">{{ 'VALIDATION_REQUIRED' | translate }}</span>
+          </ion-label>
+          <ion-input type="password" placeholder="{{'PASSWORD_CONFIRMATION_PLACEHOLDER' | translate}}" [(ngModel)]="register_account.password_confirmation"
+            name="password"></ion-input>
+        </ion-item>
+      </ion-list>
+      <div padding>
+        <button class="btn-default" ion-button color="primary" block (tap)="register()">{{'REGISTER' | translate}}</button>
+        <button ion-button full clear color="primary" (tap)="backToLogin()">{{'BACK_TO_LOGIN' | translate}}</button>
+      </div>
+
+    </form>
+
+  </div>
+</ion-content>

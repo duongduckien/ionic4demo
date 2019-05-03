@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar [color]="pageParams.headerBg">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title *ngIf="pageParams.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+
+    <ion-title *ngIf="!pageParams.headerTitle && pageParams.headerImg">
+      <img *ngIf="pageParams.headerImg" [src]="pageParams.headerImg" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="title-header" *ngIf="pageParams.pageTitle">
+    <h2 class="page-title">{{ pageParams.pageTitle }}</h2>
+  </div>
+
+  <div class="grid-layout grid-3" *ngIf="pageParams.layout == 'grid'" [virtualScroll]="gridRows" approxItemHeight="125px">
+    <ion-grid>
+      <ion-row *virtualItem="let row; let i = index;">
+        <ion-col col-4 no-padding *ngFor="let column of gridColumns; let col = index;">
+          <div *ngIf="row[col] !== null" class="thumb thumb-grid-3" (tap)="openPhoto(row[col].index)">
+            <ion-thumbnail *ngIf="row[col].image" [ngStyle]="row[col].image ? {'background-image': 'url(' + row[col].image + ')'} : ''"></ion-thumbnail>
+          </div>        
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="card-layout" *ngIf="pageParams.layout == 'card'" [virtualScroll]="photos" approxItemHeight="375px">
+    <ion-card *virtualItem="let photo; let i = index;">
+      <ion-item *ngIf="showUser(photo) && showCreated(photo)">
+        <ion-avatar item-start *ngIf="showUser(photo)">
+          <img [src]="photo.user.avatar.image" alt="">
+        </ion-avatar>
+        <h2 *ngIf="showUser(photo)">{{ photo.user.name }}</h2>
+        <p *ngIf="showCreated(photo)">{{ photo.created }}</p>
+      </ion-item>
+      <div class="thumb thumb-card" (tap)="openPhoto(i)">
+        <ion-thumbnail *ngIf="photo.image" [ngStyle]="photo.image ? {'background-image': 'url(' + photo.image + ')'} : ''"></ion-thumbnail>
+      </div> 
+      <ion-card-content>
+        <p>{{ photo.listing.title }}</p>
+        <p *ngIf="photo.caption != ''">{{ photo.caption }}</p>
+      </ion-card-content>        
+    </ion-card>
+  </div>
+
+  <ion-infinite-scroll *ngIf="morePhotos()" (ionInfinite)="loadPhotos($event)" threshold="20%">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

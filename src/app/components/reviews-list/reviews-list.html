@@ -1,0 +1,30 @@
+<ion-avatar item-start>
+  <img *ngIf="review.reviewer?.avatar.image" [src]="review.reviewer?.avatar.image" alt="">
+</ion-avatar>
+
+<div class="review-content">
+  
+  <div class="review-header">
+    <div class="review-title">
+      <h2 *ngIf="whichTitle == 'listing' || review.title == ''">{{ review?.listing.title }}</h2>
+      <h2 *ngIf="whichTitle == 'review'">{{ review?.title }}</h2>
+    </div>
+    <rating [review]="review" *ngIf="review.rating !== null"></rating>
+  </div>
+
+  <p class="review-comments" *ngIf="review.comments" [innerHTML]="review.comments"></p>
+
+  <div class="review-info">
+    <p *ngIf="review.reviewer !== null && review.created !== null">
+      {{ 'REVIEWED_BY_USER_ON_DATE' | translate:{user:review.reviewer.name,date:review.created} }}
+    </p>
+    <p *ngIf="review.reviewer !== null && review.created == null">
+      {{ 'REVIEWED_BY_USER' | translate:{user:review.reviewer.name} }}
+    </p>
+    <p *ngIf="review.reviewer == null && review.created !== null">
+      {{ review.created }}
+    </p>
+  </div>
+
+  <button ion-button clear *ngIf="showDiscussionCount">Comments ({{ review.discussions.total }})</button>
+</div>

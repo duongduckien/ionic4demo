@@ -1,0 +1,113 @@
+custom-fields {
+
+    .fields-container {
+        padding: 0 8px;
+        border: none;
+        margin-bottom: 10px;
+        .item-inner {
+            border: 0!important;
+            margin-bottom: 10px;
+        }
+        .item {
+            padding: 0 8px;
+            border: 0;
+        }
+        .list-header {
+            color: #333;
+            .input-wrapper {
+                .label {
+                    font-weight: 500;
+                    text-transform: capitalize;
+                    font-size: 18px;
+                }
+            }
+        }        
+    }
+
+    .chip {
+        border-radius: 16px;
+        height: 32px;
+        font-size: 13px;
+        line-height: 32px;
+        color: rgba(0, 0, 0, 0.87);
+        background: rgba(0, 0, 0, 0.12);
+        margin: 2px 5px 0 0;
+        padding: 8px 10px;
+        cursor: pointer; 
+    }
+    ion-list.list-md,
+    ion-list.list-ios {
+        margin: 10px 0; 
+        .list-header-ios,
+        .item-ios {
+            padding: 0 10px;
+            border-color: #ddd;
+            .item-inner {
+                padding: 0;
+                border-color: #ddd;
+            }
+        }
+        ion-item {
+            font-size: 1.5rem;
+            border-color: #ddd;
+        }
+
+        ion-label {
+            margin: 4px 4px 4px 0;
+        }
+    }
+
+    .list-ios > .item-block:first-child {
+        border-top: 0;
+    }
+    .list-ios > .item-block:last-child {
+        border-bottom: 0;
+    }
+
+    .field-value {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .field-label {
+        font-weight: 800;
+    }
+
+    .stacked .field-label {
+        display: inline-block;
+        margin-bottom: 3px;
+    }
+
+    .stacked .field-value {
+        li {
+            display: inline-block;
+        }
+        li.option-image {
+            margin-right: 10px;
+        }
+        li.option-text:after {
+            content: "•";
+            margin-right: 10px;
+        }
+        li:last-child:after {
+            display: none;
+            content: "";
+        }
+    }
+
+    .side-by-side .field-label {
+        display: inline-block;
+        max-width: 38%;
+    }
+
+    .side-by-side .field-value {
+        float: right;
+        max-width: 60%;
+        li {
+            display: block;
+            text-align: right;
+        }
+    }
+
+}

@@ -1,0 +1,8 @@
+<div *ngIf="displayRating" class="rating-stars-container">
+    <span class="editor-rating-icon" *ngIf="reviewType === 'editor'"></span>
+    <span class="user-rating-icon" *ngIf="reviewType === 'user'"></span>
+    <div [ngClass]="classes">
+        <div [style.width]="ratingPercent"></div>
+    </div>
+    <div class="rating-value">{{ review.rating | number:'1.0-1' }}</div>
+</div>

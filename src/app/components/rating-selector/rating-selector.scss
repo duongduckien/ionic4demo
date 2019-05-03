@@ -1,0 +1,116 @@
+rating-selector {
+  padding: 0;
+
+  .star {
+    .range-bar {
+      top: 0;
+      left: 0px;
+      height: 25px;
+      background: transparent url('../assets/icon/star.png') top left repeat-x;
+      background-size: contain;
+    }
+    .range-slider {
+      flex: none;
+      height: 20px;
+      width: 125px;
+    }
+    .range-bar-active {
+      background: transparent url('../assets/icon/star-checked.png') top left repeat-x !important;
+      background-size: contain !important;
+      left: 1px;
+    }
+    .range-knob {
+      display: none;
+    }
+    .range-tick {
+      display: none;
+    }
+    ion-label {
+      display: none;
+    }
+    ion-range {
+      display: inline-block;
+      touch-action: auto !important;
+      padding-left: 5px;
+    }
+  }
+
+  .remove {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    margin-top: 4px;
+    border-radius: 50%;
+    text-align: center;
+    background: #ff5722;
+    span {
+      display: block;
+      width: 60%;
+      height: 6px;
+      margin: 12px auto;
+      background: #fff;
+      vertical-align: middle;
+    }
+  }
+  .slider {
+    .remove {
+      margin-top: 14px;
+    }
+  }
+  .wrap-rating-slider {
+    padding: 0 40px 0 15px;
+    .range-slider {
+      padding: 0;
+      .range-tick {
+        width: 25px;
+        height: 25px;
+        background: #d8d8d8;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        top: 11px;
+        text-align: center;
+        z-index: 87;
+        &.range-tick-active {
+          background: #7ed21c;
+          &:before {
+            content: "\f2fc";
+            font-family: "Ionicons";
+            font-size: 20px;
+            color: #ffffff;
+          }
+        }
+      }
+      .range-bar {
+        height: 5px;
+        background: #d8d8d8;
+        &.range-bar-active {
+          background: #81d21d;
+        }
+      }
+      [range-right] {
+        position: absolute;
+        top: -10px;
+        right: -16px;
+      }
+    }
+    .range-knob-handle {
+      display: none !important;
+    }
+  }
+  .wrap-rating-star {
+    .range-slider {
+      width: 130px;
+    }
+  }
+}
+.platform-ios{
+  rating-selector{
+    .wrap-rating-star {
+      .range-slider {
+        width: 133px;
+      }
+    }
+  }
+}

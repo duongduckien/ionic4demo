@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar [color]="pageParams.headerBg">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="pageParams?.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+    <ion-title *ngIf="!pageParams?.headerTitle && pageParams.headerImg"><img *ngIf="pageParams.headerImg" [src]="pageParams.headerImg" /></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding-top class="bgf5 content-widget">
+
+  <div class="title-header" *ngIf="pageParams.pageTitle">
+    <h2 class="page-title">{{ pageParams.pageTitle }}</h2>
+  </div>
+
+  <div no-lines *ngFor="let widget of widgets; let i = index" class="widget-container">
+  
+    <div class="widget-header">
+  
+      <div class="widget-title">
+        {{widget.title}}
+      </div>
+  
+      <div (tap)="toPage(widget.type, widget.dataParams, widget.title)" class="view-all">
+        <span>{{ 'SEE_ALL' | translate }}</span>
+        <ion-icon name="ios-arrow-forward-outline"></ion-icon>
+      </div>
+  
+    </div>
+  
+    <div class="non-padding bg-white">
+  
+      <div padding text-center class="loading-spinner" *ngIf="widget.data === undefined">
+        <ion-spinner name="dots"></ion-spinner>
+      </div>
+    
+      <listings-widget *ngIf="widget.type == 'ListingsPage'" (onToggleFavorite)="onToggleFavorite($event, i)" [layout]="widget.widgetParams.layout" [listings]="widget.data" [isLoggedIn]="isLoggedIn"></listings-widget>
+      
+      <reviews-widget *ngIf="widget.type == 'ReviewsPage'" [layout]="widget.widgetParams.layout" [reviews]="widget.data"></reviews-widget>
+    
+    </div>
+  
+  </div>
+
+</ion-content>

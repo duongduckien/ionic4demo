@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar [color]="pageParams.headerBg">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title *ngIf="pageParams.headerTitle">{{ pageParams.headerTitle }}</ion-title>
+    <ion-title *ngIf="!pageParams.headerTitle && pageParams.headerImg">
+      <img *ngIf="pageParams.headerImg" [src]="pageParams.headerImg" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="title-header" *ngIf="pageParams.pageTitle">
+    <h2 class="page-title">{{ pageParams.pageTitle }}</h2>
+  </div>
+
+  <ion-list>
+    <div *ngIf="isCatPage">
+      <div *ngFor="let category of categories">
+
+        <ion-item (tap)="goToListingsPage(category)" (tap)="trackView(category)">
+          <ion-avatar item-start>
+            <div class="thumb-image" [ngStyle]="category.image ? {'background-image': 'url(' + category.image + ')'} : ''"></div>
+          </ion-avatar>
+          <h2>{{ category.title }}</h2>
+        </ion-item>
+
+        <div class="subcategory" *ngFor="let subcategory of category.subcategories" (tap)="goToListingsSubPage(subcategory)" (tap)="trackView(subcategory)">
+          <ion-item>
+            <ion-avatar item-start>
+              <div class="thumb-image" [ngStyle]="subcategory.image ? {'background-image': 'url(' + subcategory.image + ')'} : ''"></div>
+            </ion-avatar>
+            <h2>{{ subcategory.title }}</h2>
+          </ion-item>
+        </div>
+
+      </div>
+    </div>
+
+  </ion-list>
+</ion-content>

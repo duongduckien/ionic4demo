@@ -1,0 +1,195 @@
+<ion-header id="header" #header>
+  <ion-navbar [color]="pageParams.headerBg">
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="listing-detail">
+  <div *ngIf="listingWasLoaded">
+    <div class="listing-detail-content" *ngIf="listing">
+      <div class="ld-header" [ngClass]="{'no-image': ((!listing.thumb || listing.thumb === '') && (!listing.category?.image || listing.category?.image === '') && (!listing.directory?.image || listing.directory?.image === ''))}">
+
+        <div class="header-custom">
+          <button ion-button large clear class="goback" (tap)="backPreviousPage()">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+          </button>
+          <button *ngIf="allowsFavorites(listing)" ion-button large icon-only clear class="favorite-top" (tap)="onToggleFavorite()">
+            <ion-icon class="like" name="md-heart" [hidden]="!listing.me.favorite"></ion-icon>
+            <ion-icon class="unlike" name="md-heart-outline" [hidden]="listing.me.favorite"></ion-icon>
+          </button>
+        </div>
+
+        <div text-center class="ld-header-img">
+          <img class="main-thumb" *ngIf="listing.thumb && listing.thumb !== ''" [src]="listing.thumb" [alt]="listing.title" (load)="listingCoverLoaded = true" [ngClass]="{'img-loaded':listingCoverLoaded}" [hidden]="!listingCoverLoaded" />
+          <ion-spinner *ngIf="listing.thumb && listing.thumb !== '' && !listingCoverLoaded"></ion-spinner>
+        </div>
+
+      </div>
+
+      <div class="ld-content">
+        <div class="ld-content-info">
+          <p class="page-title">{{listing?.title}}</p>
+
+          <overall-ratings type="editor" [size]="'large'" [listing]="listing" *ngIf="listing?.reviews?.editor !== null"></overall-ratings>
+          <overall-ratings type="user" [size]="'large'" [listing]="listing" *ngIf="listing?.reviews?.user !== null"></overall-ratings>
+
+          <div *ngIf="listing?.owner !== null" class="listing-user">
+            <img [src]="listing?.owner?.avatar?.image">
+            <span class="user-info">{{listing?.owner?.name}} </span>
+          </div>
+          
+        </div>
+
+        <div class="ld-action-buttons row">
+
+          <ion-col *ngIf="allowsReviews()" class="action-btn" (tap)="writeReview()" [ngClass]="!allowsFavorites() ? 'action-btn-single' : ''" tappable>
+            <div class="icon-star">
+              <ion-icon name="md-star-outline"></ion-icon>
+            </div>
+            <span *ngIf="reviewSubmission === 'review'">{{ 'WRITE_REVIEW' | translate }}</span>
+            <span *ngIf="reviewSubmission === 'comment'">{{ 'WRITE_COMMENT' | translate }}</span>
+          </ion-col>
+
+          <ion-col *ngIf="allowsFavorites(listing)" class="action-btn" (tap)="onToggleFavorite()" tappable>
+            <ion-icon class="like" name="md-heart" [hidden]="!listing.me.favorite"></ion-icon>
+            <ion-icon class="unlike" name="md-heart-outline" [hidden]="listing.me.favorite"></ion-icon>
+            <span>{{ 'ADD_TO_FAVORITES' | translate }}</span>
+          </ion-col>
+
+        </div>
+
+        <div class="ld-content-direction">
+          <div class="contact-phone"></div>
+          <div class="contact-direction"></div>
+        </div>
+
+      </div>
+
+      <div class="ld-content-bottom">
+
+        <div *ngIf="listing.summary" class="summary" padding-horizontal [innerHTML]="listing.summary | convertlinks"></div>
+
+        <div *ngIf="listing.description" class="description" padding-horizontal padding-bottom [innerHTML]="listing.description | convertlinks"></div>
+
+        <custom-fields *ngIf="fieldsLoaded" [entry]="listing" layout="stacked"></custom-fields>
+
+        <div 
+          *ngIf='(listing?.geolocation?.lat !== null && listing?.geolocation?.lng !== null) && pageParams.static_map.enabled'
+          (tap)="getPageDirection()" 
+          class="static-map"
+        >
+          <static-map 
+            [lat]="listing?.geolocation?.lat" 
+            [long]="listing?.geolocation?.lng" 
+            [zoom]="pageParams.static_map.zoom" 
+            [size]="pageParams.static_map.size"
+            [maptype]="pageParams.static_map.maptype" 
+            [marker]="pageParams.static_map.marker" 
+            [style]="pageParams.static_map.style"
+            [apiKey]="pageParams.integrations.google.webApiKey"
+          >
+          </static-map>
+
+        </div>
+
+        <div text-center class="ld-content listing-address" *ngIf="showAddress()">
+            <span *ngFor="let address of listingAddress">{{ address }}</span>
+        </div>
+
+        <div class="assignment" *ngIf="showFieldAssignments()" [ngClass]="!showPhoneNumber() || !showGetDirections() ? 'assignment-single' : ''">
+          
+          <ion-grid>
+            <ion-row>
+              <ion-col *ngIf="showPhoneNumber()">
+                <a href="tel:{{ listingPhone }}" class="phone">
+                  <div class="wrap" [ngClass]="!showGetDirections() ? 'no-flex': ''">
+                    <div class="icon-left">
+                      <img src="assets/icon/icon-phone.png" />
+                    </div>
+                    <div class="content-right">
+                      <span class="title">{{ 'CALL' | translate }}</span>
+                      <br>
+                      <p class="number">{{ listingPhone }}</p>
+                    </div>
+                  </div>
+                </a>
+              </ion-col>
+
+              <ion-col *ngIf="showGetDirections()" (tap)="getDirection()">
+                <div class="wrap" [ngClass]="!showPhoneNumber() ? 'no-flex' : ''">
+                  <div class="icon-left">
+                    <img class="icon-direction" src="assets/icon/icon-direction.png" />
+                  </div>
+                  <div class="content-right">
+                    <p class="title">{{ 'GET_DIRECTIONS' | translate }}</p>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </div>
+
+      </div>
+
+      <div class="listing-photos j-scroll" *ngIf="listing?.photos?.length > 0">
+        <h3 class="page-section">{{ 'PHOTOS' | translate }}</h3>
+        <ion-scroll scrollX="true" direction="x" class="media-list">
+          <div class="item" *ngFor="let photo of listing.photos; let i = index">
+            <div class="inner-item" [ngStyle]="photo.image ? {'background-image': 'url(' + photo.image + ')'} : ''" (tap)="openPhoto(i)"></div>
+          </div>
+        </ion-scroll>
+      </div>
+
+      <div class="listing-photos j-scroll" *ngIf="listing?.videos?.length > 0">
+        <h3 class="page-section">{{ 'VIDEOS' | translate }}</h3>
+        <ion-scroll scrollX="true" direction="x" class="media-list">
+          <div class="item" *ngFor="let video of listing.videos; let i = index">
+            <div class="inner-item" [ngStyle]="video.image ? {'background-image': 'url(' + video.image + ')'} : ''" (tap)="openVideo(i)">
+              <div class="btn-play play-sm">
+                <ion-icon name="play" class="icon"></ion-icon>
+              </div>
+            </div>
+          </div>
+        </ion-scroll>
+      </div>
+
+      <div class="listing-reviews listing-editor-reviews" *ngIf="listing?.reviews?.editor && listing?.reviews?.editor?.comment_count > 0">
+
+        <h3 class="page-section">{{ 'EDITOR_REVIEWS' | translate }}</h3>
+
+        <div padding text-center class="loading-spinner" *ngIf="loadingEditorReviews">
+          <ion-spinner></ion-spinner>
+        </div>
+
+        <ion-list>
+          <ion-item *ngFor="let editorReview of listing.reviews.editor.items" (tap)="goToReviewDetail(editorReview)">
+            <reviews-list [review]="editorReview" [whichTitle]="'review'"></reviews-list>
+          </ion-item>
+        </ion-list>
+
+        <button ion-button clear *ngIf="showMoreEditorReviewsLink" (tap)="viewAllReviews('editor')">{{ 'VIEW_ALL_EDITOR_REVIEWS' | translate }}</button>
+
+      </div>
+
+      <div class="listing-reviews listing-user-reviews" *ngIf="listing?.reviews?.users && listing?.reviews?.users?.comment_count > 0">
+
+        <h3 class="page-section">{{ 'USER_REVIEWS' | translate }}</h3>
+
+        <div padding text-center class="loading-spinner" *ngIf="loadingUserReviews">
+          <ion-spinner></ion-spinner>
+        </div>
+
+        <ion-list>
+          <ion-item *ngFor="let userReview of listing.reviews.users.items" (tap)="goToReviewDetail(userReview)">
+            <reviews-list [review]="userReview" [whichTitle]="'review'"></reviews-list>
+          </ion-item>
+        </ion-list>
+
+        <button ion-button full color="light" *ngIf="showMoreUserReviewsLink" (tap)="viewAllReviews('user')">{{ 'VIEW_ALL_USER_REVIEWS' | translate }}</button>
+
+      </div>
+    </div>
+
+    <div *ngIf="listing"></div>
+  </div>
+</ion-content>

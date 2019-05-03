@@ -1,0 +1,30 @@
+page-listings {
+  .searchbar-padding .scroll-content {
+      margin-top: 170px !important;
+  }
+  .favorite {
+  	position: absolute;
+  	text-align: center;
+  	z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    .icon{
+      font-size: 30px;
+    }    
+  }	
+	.grid-layout {
+		background: #fff;
+		ion-row {
+			border-bottom: 1px solid #ececec;
+			ion-col {
+				text-align: center;
+				border-right: 1px solid #ececec;
+				.grid-title {
+					padding: 5px;
+				}
+			}
+		}
+	} 	
+}
