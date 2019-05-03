@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { App } from "ionic-angular";
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { App } from 'ionic-angular';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import 'rxjs/add/operator/map';
 
 import { AuthService } from '../auth';

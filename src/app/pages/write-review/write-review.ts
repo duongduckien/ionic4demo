@@ -1,11 +1,11 @@
 import { Component, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, ViewController, ToastController, LoadingController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
-import { ImagePicker } from '@ionic-native/image-picker';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Storage } from '@ionic/storage';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { AlertController, normalizeURL } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -25,7 +25,7 @@ import { Account } from '../../interfaces/write-review-interface';
 
 // Redux
 import { NgRedux } from 'ng2-redux';
-import { MAP_SHOW_MESSAGE } from '../../app/actions';
+import { MAP_SHOW_MESSAGE } from '../../actions';
 
 @IonicPage()
 @Component({

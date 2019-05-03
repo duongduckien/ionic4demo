@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController, Events } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 
 // Services
@@ -13,7 +13,7 @@ import { GA } from '../../providers/ga';
 
 // Redux
 import { NgRedux, select } from 'ng2-redux';
-import { GO_TO_SUB_CAT } from '../../app/actions';
+import { GO_TO_SUB_CAT } from '../../actions';
 
 @IonicPage()
 @Component({

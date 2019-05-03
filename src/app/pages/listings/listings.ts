@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController, Events, AlertController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
-import { StatusBar } from '@ionic-native/status-bar';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 import _ from 'lodash';
 
 // Services
@@ -12,7 +12,7 @@ import { AuthService } from '../../providers/auth';
 import { ListingFavoriteService } from '../../providers/listing-favorite';
 
 // Redux
-import { GO_TO_SUB_CAT } from '../../app/actions';
+import { GO_TO_SUB_CAT } from '../../actions';
 import { NgRedux, select } from 'ng2-redux';
 
 @IonicPage()

@@ -1,7 +1,7 @@
 import { DomSanitizer } from '@angular/platform-browser';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, ViewController, NavController, NavParams, Slides, Events } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 // Services
 import { APIService } from '../../providers/api';

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { App } from "ionic-angular";
 
 import { NgRedux, select } from 'ng2-redux';
-import { UPDATE_LISTING_FAVORITE_STATE } from '../app/actions';
+import { UPDATE_LISTING_FAVORITE_STATE } from '../actions';
 import _ from 'lodash';
 
 import { AuthService } from './auth';

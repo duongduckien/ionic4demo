@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Platform, IonicPage, NavController, NavParams, Events, ToastController, LoadingController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 // Services
 import { ConfigService } from '../../providers/config';

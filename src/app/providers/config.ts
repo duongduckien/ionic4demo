@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 
 // Redux
 import { NgRedux } from 'ng2-redux';
-import { STORE_DIRECTORIES, STORE_CATEGORIES, ENVIRONMENT, STORE_SETTINGS } from '../app/actions';
+import { STORE_DIRECTORIES, STORE_CATEGORIES, ENVIRONMENT, STORE_SETTINGS } from '../actions';
 
 // Services
 import { APIService } from './api';

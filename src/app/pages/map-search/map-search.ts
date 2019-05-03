@@ -1,6 +1,6 @@
 import { Component, HostListener, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ToastController, Events } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { Geocoder } from '@ionic-native/google-maps';
 import { AlertController } from 'ionic-angular';
@@ -13,7 +13,7 @@ import { HelperService } from '../../providers/helper';
 
 // Redux
 import { NgRedux } from 'ng2-redux';
-import { MAP_CATEGORY_SELECT } from '../../app/actions';
+import { MAP_CATEGORY_SELECT } from '../../actions';
 
 declare var google: any;
 

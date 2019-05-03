@@ -1,10 +1,10 @@
 import { Component, ElementRef, Renderer, ViewChild, NgZone } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Platform, IonicPage, Content, NavController, NavParams, LoadingController, ToastController, Events } from 'ionic-angular';
-import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
-import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation/ngx';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
-import { StatusBar } from '@ionic-native/status-bar';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { NgRedux, select } from 'ng2-redux';
 import _ from 'lodash';
 

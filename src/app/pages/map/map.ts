@@ -1,6 +1,6 @@
 import { Component, ComponentRef, Injector, ApplicationRef, ComponentFactoryResolver, NgZone } from '@angular/core';
 import { Platform, Events, IonicPage, NavController, NavParams, ToastController, ModalController, LoadingController, MenuController, AlertController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import _ from 'lodash';
 
@@ -14,7 +14,7 @@ import { HelperService } from '../../providers/helper';
 
 // Redux
 import { NgRedux, select } from 'ng2-redux';
-import { MAP_SHOW_MESSAGE } from '../../app/actions';
+import { MAP_SHOW_MESSAGE } from '../../actions';
 
 import {
   GoogleMaps,
